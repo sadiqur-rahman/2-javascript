@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Objects</title>
+    </head>
+  <body>
+    <script>
+      
+      const product = {
+        name: 'socks',
+        price: 30
+      };
+      
+      //Getting the values
+      console.log(typeof product);
+      console.log(product);
+      console.log(product.name);
+      console.log(product.price);
+
+      //Modifying the values
+      product.name = 'cotton socks';
+
+      //Getting the value
+      console.log(product);
+
+      //Adding new property with values
+      product.newProperty = true;
+      console.log(product);
+
+      //Deleting a property
+      delete product.newProperty;
+      console.log(product);
+  
+      const product2 = {
+        name: 'shirt',
+        'delivery-date': '1 day',
+        //Object inside the object
+        rating: {
+          stars: 4.5,
+          count: 87
+        },
+        //Function inside an Object
+        hello: function showMessage() {
+          console.log('Thank you.');
+        }
+      };
+      console.log(product2);
+
+      //Dot Notation [Can give error]
+      console.log(product2.name);
+      
+      console.log(product2.delivery-date); //Error
+      
+      //Box Notation
+      console.log(product2['delivery-date']); //Undefined, not error
+
+      console.log(product2.rating.stars);
+
+      //Calling the function inside the Object
+      product2.hello();
+
+      // Built-in JSON Object and junction -> Convert JS Obj to JSON.
+      console.log(JSON.stringify(product2));
+      console.log(typeof JSON.stringify(product2));
+
+      // Built-in JSON Object -> Convert JSON to JS Obj
+      const jsonString = JSON.stringify(product2);
+      console.log(JSON.parse(jsonString));
+      console.log(typeof JSON.parse(jsonString));
+
+
+      //Auto boxing
+      console.log('hello'.length);
+      console.log('hello'.toUpperCase());
+      
+      //Object are references
+      const object1 = {
+        message: 'hello',
+      };
+      //Copy by reference
+      //We are not copying intire object, we copy only the reference.
+      const object2 = object1;
+      
+
+      object1.message = 'Good job!';
+      console.log(object1);
+      console.log(object2);
+      //const in copy by reference prevent changing the reference of an object but allow reaching into the object and changing the object property's value that is pointing to. 
+
+      //We can't compare object values directly because they contain reference not valuess.
+      const object3 = {
+        message: 'Goof job!'
+      };
+      console.log(object3 === object1); //Different reference: false
+      console.log(object2 === object1); //Same reference: true
+
+      //Shotcut for objects
+      const object4 = {
+        message: 'Goof job!'
+      };
+      const message = object4.message;
+      const { message } = object4; //Destructing: new var name same as object property.
+      console.log(message);
+
+      //Example of destructuring 
+      const object5 = {
+        name: 'tshirt',
+        price: 200,
+        rating: 4.5
+      };
+      const { name } = object5;
+      console.log(name);
+      
+      const { price, rating } = object5;
+      console.log(price);
+      console.log(rating);
+
+      //Shorthand property
+      const object6 = {
+        rating: rating,
+        rating, //Shorthand property
+        method: function function1(){
+          console.log('method');
+        },
+        //Shorthand method
+        method2(){
+          console.log('Shorthand method') //Shorthand method
+        }
+      };
+
+      console.log(object6);
+      object6.method();
+      object6.method2();
+      
+    </script>
+  </body>
+</html>

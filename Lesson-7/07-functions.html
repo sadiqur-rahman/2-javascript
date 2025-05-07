@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Function</title>
+    </head>
+  <body>
+    <script>
+      /*
+      function function1(){
+        console.log('hello');
+        console.log(2 + 2);
+      }
+
+      function1();
+      function1();
+      */ 
+
+      /*
+      //Function
+      function calculateTax(){
+        console.log(1000 * 0.1);
+      } 
+      calculateTax();
+
+      //Parameter passing into function
+      function calculateTax2(cost){
+        console.log(cost * 0.1);
+      }
+      //Argument passing into function calling
+      calculateTax2(2000);
+      calculateTax2(5000);
+      */
+
+      //Multiple Parameter
+      function calculateTax3(cost, taxPercent = 0.1){
+        console.log(taxPercent);
+        console.log(cost * taxPercent);
+      }
+      calculateTax3(2000, 0.2);
+      calculateTax3(5000);
+    </script>
+  </body>
+</html>
