@@ -5,16 +5,22 @@
     </head>
   <body>
     <button>hello</button>
+    <button class="js-button">Second button</button>
 
     <script>
       //document.querySelector()
       //document.querySelector().innerHTML
       console.log(document.querySelector('button'));
-      console.log(document.querySelector('button').innerHTML);
-      console.log(document.querySelector('button')
-        .innerHTML = 'Changed');
+      //console.log(document.querySelector('button').innerHTML);
+      //console.log(document.querySelector('button')
+      //  .innerHTML = 'Changed');
       
-      
+      //Accessing 2nd button using class attribute starting with (.class-name) class selector.
+      console.log(document.querySelector('.js-button'));
+      //Using variable to keep the DOM.
+      const buttonElement = document.querySelector('.js-button');
+      console.log(buttonElement);
+
       //document.body
       //document.body.innerHTML
       /*
