@@ -5,7 +5,14 @@
     </head>
   <body>
     <p>YouTube Subscribe Button</p>
-    <button>Subscribe</button>
+    <button class="js-subscribe-button" onclick="
+      const buttonElement = document.querySelector('.js-subscribe-button');
+      if(buttonElement.innerHTML === 'Subscribe') {
+        buttonElement.innerHTML = 'Subscribed';
+      } else {
+        buttonElement.innerHTML = 'Subscribe';
+      };
+      ">Subscribe</button>
 
     <script>
       /*Algorithm in JavaScript
