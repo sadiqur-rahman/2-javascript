@@ -7,7 +7,30 @@
     <button>hello</button>
 
     <script>
-      document.body.innerHTML = 'hello';
+      //document.querySelector()
+      //document.querySelector().innerHTML
+      console.log(document.querySelector('button'));
+      console.log(document.querySelector('button').innerHTML);
+      console.log(document.querySelector('button')
+        .innerHTML = 'Changed');
+      
+      
+      //document.body
+      //document.body.innerHTML
+      /*
+      console.log(document.body); //Take everything from <body> tag.
+      console.log(document.body.innerHTML); //Take everything inside <body> tag.
+
+      document.title = 'Changed!';
+      console.log(document.title);
+
+      document.body.innerHTML = 'hello'; //Chnages entire HTML inside 
+      console.log(document.body.innerHTML);
+      
+      document.body.innerHTML = '<button>Good Job!</button>'; //Chnages entire HTML inside <body>.
+      console.log(document.body);
+      console.log(document.body.innerHTML);
+      */
     </script>
   </body>
 </html>
