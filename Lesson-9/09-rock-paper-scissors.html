@@ -123,7 +123,7 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
       }
 
       //Updates moves into HTML
-      function updateMoveElement() {
+      function updateMoveElement(playerMove, computerMove) {
         document.querySelector('.js-moves')
           .innerHTML = `You: ${playerMove}, Computer: ${computerMove}.`;
       }
