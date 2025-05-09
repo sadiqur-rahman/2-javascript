@@ -90,9 +90,9 @@
         localStorage.setItem('score', JSON.stringify(score));
         
         //Calling to Update after each playing
-        updateScoreElement();
         updateResultElement();
-        updateMoveElement();
+        updateMoveElement(playerMove, computerMove);
+        updateScoreElement();
 
         console.log(`${result}
 You: ${playerMove}, Computer: ${computerMove}.
