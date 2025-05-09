@@ -29,8 +29,7 @@
 
       localStorage.removeItem('score');
 
-      document.querySelector('.js-score')
-        .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+      updateScoreElement();
 
       console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
     ">Reset Score</button>
@@ -113,8 +112,6 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
         }
         return computerMove;
       }
-
-      
 
       //Updates result into HTML
       function updateResultElement() {
