@@ -18,11 +18,9 @@
       playGame('Scissors');
     ">Scissors</button>
 
+    <p class="js-result"></p>
+    <p class="js-moves"></p>
     <p class="js-score"></p>
-
-    <button onclick="
-      console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
-    ">Show Score</button>
 
     <button onclick="
       score.wins = 0;
@@ -30,6 +28,9 @@
       score.ties = 0;
 
       localStorage.removeItem('score');
+
+      document.querySelector('.js-score')
+        .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
 
       console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
     ">Reset Score</button>
@@ -40,13 +41,15 @@
         losses: 0,
         ties: 0
       };
+      
+      let result;
 
-      document.querySelector('.js-score')
-        .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+      //Keeping the score showing even after the reload
+      updateScoreElement();
 
+      //Playing the Game
       function playGame(playerMove){
         const computerMove = pickComputerMove();
-        let result = '';
 
         if(playerMove === 'Rock') {
           if(computerMove === 'Rock') {
@@ -86,15 +89,17 @@
 
         localStorage.setItem('score', JSON.stringify(score));
         
-        //console.log(`${result}`);
-        //console.log(`You: ${playerMove}, Computer: ${computerMove}.`);
-        //console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+        //Calling to Update after each playing
+        updateScoreElement();
+        updateResultElement();
+        updateMoveElement();
 
         console.log(`${result}
 You: ${playerMove}, Computer: ${computerMove}.
 Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
       }
 
+      //Finding Computer Move
       function pickComputerMove(){
         const randomNumber = Math.random();
         let computerMove = '';
@@ -107,6 +112,26 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
           computerMove = 'Scissors';
         }
         return computerMove;
+      }
+
+      
+
+      //Updates result into HTML
+      function updateResultElement() {
+        document.querySelector('.js-result')
+        .innerHTML = `${result}`;
+      }
+
+      //Updates moves into HTML
+      function updateMoveElement() {
+        document.querySelector('.js-moves')
+          .innerHTML = `You: ${playerMove}, Computer: ${computerMove}.`;
+      }
+
+      //Updates score into HTML
+      function updateScoreElement() {
+        document.querySelector('.js-score')
+          .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
       }
     </script>
   </body>
