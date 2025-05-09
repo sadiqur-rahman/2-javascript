@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Rock Paper Scissors Version 3.0</title>
+      <title>Rock Paper Scissors</title>
     </head>
   <body>
-    <p>Rock Paper Scissors (Version 3.0)</p>
+    <p>Rock Paper Scissors (Version 4.0-dom)</p>
 
     <button onclick="
       playGame('Rock');
@@ -18,24 +18,20 @@
       playGame('Scissors');
     ">Scissors</button>
 
+    <p class="js-score"></p>
+
     <button onclick="
-    console.log(JSON.parse(localStorage.getItem('score')));
-
-    console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
-
-    alert(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+      console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
     ">Show Score</button>
 
     <button onclick="
-    score.wins = 0;
-    score.losses = 0;
-    score.ties = 0;
+      score.wins = 0;
+      score.losses = 0;
+      score.ties = 0;
 
-    localStorage.removeItem('score');
+      localStorage.removeItem('score');
 
-    console.log(JSON.stringify(score));
-    console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
-    alert(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+      console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
     ">Reset Score</button>
 
     <script>
@@ -44,15 +40,10 @@
         losses: 0,
         ties: 0
       };
-/*
-      if (!score) {
-        score = {
-          wins: 0,
-          losses: 0,
-          ties: 0
-        };
-      }
-*/
+
+      document.querySelector('.js-score')
+        .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+
       function playGame(playerMove){
         const computerMove = pickComputerMove();
         let result = '';
@@ -95,10 +86,12 @@
 
         localStorage.setItem('score', JSON.stringify(score));
         
-        console.log(`You: ${playerMove}, Computer: ${computerMove}. Result: ${result} 
-Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+        //console.log(`${result}`);
+        //console.log(`You: ${playerMove}, Computer: ${computerMove}.`);
+        //console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
 
-        alert(`You: ${playerMove}, Computer: ${computerMove}. Result: ${result} 
+        console.log(`${result}
+You: ${playerMove}, Computer: ${computerMove}.
 Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
       }
 
