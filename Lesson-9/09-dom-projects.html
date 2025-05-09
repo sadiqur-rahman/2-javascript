@@ -6,12 +6,7 @@
   <body>
     <p>YouTube Subscribe Button</p>
     <button class="js-subscribe-button" onclick="
-      const buttonElement = document.querySelector('.js-subscribe-button');
-      if(buttonElement.innerText === 'Subscribe') {
-        buttonElement.innerHTML = 'Subscribed';
-      } else {
-        buttonElement.innerHTML = 'Subscribe';
-      };
+      subscribe();
       ">Subscribe</button>
 
     <script>
@@ -20,6 +15,14 @@
       1. if thet ext is "Subscribe" => "Subscribed"
       2. else change it back to "Subscribe"
       */
+     function subscribe(){
+      const buttonElement = document.querySelector('.js-subscribe-button');
+      if(buttonElement.innerText === 'Subscribe') {
+        buttonElement.innerHTML = 'Subscribed';
+      } else {
+        buttonElement.innerHTML = 'Subscribe';
+      }  
+     }
     </script>
   </body>
 </html>
