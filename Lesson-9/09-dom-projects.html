@@ -27,7 +27,16 @@
     <P>Amazon Shipping Calculator</P>
     <p>Orders under $40 = +$10 shipping.</p>
     <p>Orders over $40 = FREE shipping.</p>
-    <input placeholder="Cost of order" class="js-cost-input">
+    
+    <!--
+    1. clicks, keydowns => events
+    2. onclik, onkeydown => eventt listeners
+    3. event has object called: key
+    -->
+    <input onkeydown="
+      handleCostKeyDown(event)
+    " placeholder="Cost of order" class="js-cost-input">
+    
     <button onclick="
       calculateTotal();
       ">Calculate</button>
@@ -35,28 +44,34 @@
 
     <script>
     //Subscribe Button
-     function subscribe(){
+    function subscribe(){
       const buttonElement = document.querySelector('.js-subscribe-button');
       if(buttonElement.innerText === 'Subscribe') {
         buttonElement.innerHTML = 'Subscribed';
       } else {
         buttonElement.innerHTML = 'Subscribe';
       }  
-     }
+    }
 
-     //Amazon Shipping Calculator
-     function calculateTotal(){
+    //Amazon Shipping Calculator
+    function calculateTotal(){
       const inputElement = document.querySelector('.js-cost-input');
 
       //Type Coercion. Value Cost from DOM is a string, need to make it number.
       let cost = Number(inputElement.value);
-
-
+      
       if (cost < 40) {
         cost = cost + 10;
       }
       document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
-     }
+    }
+
+    //making a function for onkeydown
+    function handleCostKeyDown(event) {
+      if (event.key === 'Enter') {
+        calculateTotal();
+      }
+    }
     </script>
   </body>
 </html>
