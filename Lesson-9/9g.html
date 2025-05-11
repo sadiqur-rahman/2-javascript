@@ -19,7 +19,7 @@
     2. onclik, onkeydown => eventt listeners
     3. event has object called: key
     -->
-    <input onkeydown="
+    <input type="number" min="1" onkeydown="
       handleCostKeyDown(event)
     " placeholder="Cost of order" class="js-cost-input">
     
@@ -39,14 +39,22 @@
     //Amazon Shipping Calculator
     function calculateTotal(){
       const inputElement = document.querySelector('.js-cost-input');
+      const value = inputElement.value.trim(); // Get and clean the input
 
-      //Type Coercion. Value Cost from DOM is a string, need to make it number.
-      let cost = Number(inputElement.value);
+      // Check if input is empty, not a number, or less than or equal to 0
+      if (value === '' || isNaN(Number(value)) || Number(value) <= 0) {
+        document.querySelector('.js-total-cost').innerHTML = 'Please enter a valid order amount.';
+        return; // Exit the function early if input is invalid
+      }
+
+      let cost = Number(value);
       
       if (cost < 40) {
         cost = cost + 10;
+        document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+      } else {
+        document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
       }
-      document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
     }
 
     //making a function for onkeydown
