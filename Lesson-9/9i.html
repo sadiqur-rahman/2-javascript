@@ -23,9 +23,11 @@
     </p>
 
     <p>
-      <button onclick="console.log(`Cart quantity: ${cartQuantity}`)">Show Cart Quantity</button>
+      <button onclick="showCartQuantity()">Show Cart Quantity</button>
       <button onclick="resetCart()">Reset Cart</button>
     </p>
+
+    <p class="js-showCartQuantity"></p>
 
     <script>
       let cartQuantity = 0;
@@ -37,28 +39,47 @@
         if (change > 0) {
           if (newQuantity > MAX_CAPACITY) {
             console.log('Max capacity is 10. Cannot add more.');
+            document.querySelector('.js-showCartQuantity').innerHTML = `Max capacity is 10. Cannot add more.`;
+            //return;
           } else {
             cartQuantity = newQuantity;
+            console.log(`Cart quantity: ${cartQuantity}`);
+            document.querySelector('.js-showCartQuantity').innerHTML = `Cart quantity: ${cartQuantity}`;
           }
         } else if (change < 0) {
-          if (cartQuantity === 0) {
-            console.log('Cart is already empty.');
-          } else if (newQuantity < 0) {
-            console.log('Not enough items in cart to remove.');
-          } else {
-            cartQuantity = newQuantity;
-          }
+            if (cartQuantity === 0) {
+              console.log('Cart is already empty.');
+            } else if (newQuantity < 0) {
+              console.log('Not enough items in cart to remove.');
+              document.querySelector('.js-showCartQuantity').innerHTML = `Not enough items in cart to remove.`;
+            } else {
+              cartQuantity = newQuantity;
+              console.log(`Cart quantity: ${cartQuantity}`);
+              document.querySelector('.js-showCartQuantity').innerHTML = `Cart quantity: ${cartQuantity}`;
+            }
         }
+        //document.querySelector('.js-showCartQuantity').innerHTML = `Cart quantity: ${cartQuantity}`;
+        //console.log(`Cart quantity: ${cartQuantity}`);
+      }
 
-        console.log(`Cart quantity: ${cartQuantity}`);
+      function showCartQuantity() {
+        if (cartQuantity === 0) {
+          console.log('Cart is empty.');
+          document.querySelector('.js-showCartQuantity').innerHTML = `Cart is empty.`;
+        } else {
+          console.log(`Cart quantity: ${cartQuantity}`);
+          document.querySelector('.js-showCartQuantity').innerHTML = `Cart quantity: ${cartQuantity}`;
+        }
       }
 
       function resetCart() {
         if (cartQuantity === 0) {
           console.log('Cart is already empty.');
+          document.querySelector('.js-showCartQuantity').innerHTML = `Cart is already empty.`;
         } else {
           cartQuantity = 0;
           console.log('Cart was reset.');
+          document.querySelector('.js-showCartQuantity').innerHTML = `Cart was reset.`;
         }
       }
     </script>
