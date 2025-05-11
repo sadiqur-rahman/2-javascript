@@ -9,6 +9,10 @@
   <input class="js-input" onkeyup="
     onTyping(event);
     ">
+  <button class="js-clear" onclick="
+    clearInput();
+    ">Clear
+  </button>
 
   <p class="js-live-input"></p>
 </body>
@@ -18,5 +22,11 @@
     const inputText = document.querySelector('.js-input').value;
     document.querySelector('.js-live-input').innerHTML = inputText;
   } 
+
+  //Clear the input value
+    function clearInput() {
+      document.querySelector('.js-cost-input').value = '';
+      document.querySelector('.js-total-cost').innerHTML = '';
+    }
 </script>
 </html>
