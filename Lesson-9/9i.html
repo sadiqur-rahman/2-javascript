@@ -49,6 +49,7 @@
         } else if (change < 0) {
             if (cartQuantity === 0) {
               console.log('Cart is already empty.');
+              document.querySelector('.js-showCartQuantity').innerHTML = `Invalid operation: Cart is already empty.`;
             } else if (newQuantity < 0) {
               console.log('Not enough items in cart to remove.');
               document.querySelector('.js-showCartQuantity').innerHTML = `Not enough items in cart to remove.`;
