@@ -51,9 +51,9 @@
       
       if (cost < 40) {
         cost = cost + 10;
-        document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+        document.querySelector('.js-total-cost').innerHTML = `$${cost.toFixed(2)}`;
       } else {
-        document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+        document.querySelector('.js-total-cost').innerHTML = `$${cost.toFixed(2)}`;
       }
     }
 
