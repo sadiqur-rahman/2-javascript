@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>9d Excercise</title>
+</head>
+<body>
+  <input class="js-input" type="text" placeholder="Enter your name" onkeydown="
+    runByEnter(event);
+  ">
+
+  <button onclick="
+    showName();
+  ">Submit</button>
+
+  <button class="js-clear" onclick="
+    clearInput();
+    ">Clear</button>
+
+  <p></p>
+</body>
+<script>
+  function showName() {
+    let inputElement = document.querySelector('.js-input');
+    document.querySelector('p').innerHTML = `Your  name is: ${inputElement.value}`;
+  }
+
+  function clearInput() {
+    document.querySelector('.js-input').value = '';
+    document.querySelector('p').innerHTML = '';
+  }
+
+  function runByEnter(event) {
+    if (event.key === 'Enter') {
+      showName();
+    }
+  }
+</script>
+</html>
