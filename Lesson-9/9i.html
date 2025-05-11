@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>9i. Exercise : Cart Update</title>
+  </head>
+  <body>
+
+    <p>DOM Cart Quantity.</p>
+
+    <p>
+      <button onclick="updateCart(1)">Add to Cart</button>
+      <button onclick="updateCart(2)">+2</button>
+      <button onclick="updateCart(3)">+3</button>
+      <button onclick="updateCart(4)">+4</button>
+      <button onclick="updateCart(5)">+5</button>
+    </p>
+
+    <p>
+      <button onclick="updateCart(-1)">Remove from cart</button>
+      <button onclick="updateCart(-2)">-2</button>
+      <button onclick="updateCart(-3)">-3</button>
+      <button onclick="updateCart(-5)">-5</button>
+    </p>
+
+    <p>
+      <button onclick="console.log(`Cart quantity: ${cartQuantity}`)">Show Cart Quantity</button>
+      <button onclick="resetCart()">Reset Cart</button>
+    </p>
+
+    <script>
+      let cartQuantity = 0;
+      const MAX_CAPACITY = 10;
+
+      function updateCart(change) {
+        const newQuantity = cartQuantity + change;
+
+        if (change > 0) {
+          if (newQuantity > MAX_CAPACITY) {
+            console.log('Max capacity is 10. Cannot add more.');
+          } else {
+            cartQuantity = newQuantity;
+          }
+        } else if (change < 0) {
+          if (cartQuantity === 0) {
+            console.log('Cart is already empty.');
+          } else if (newQuantity < 0) {
+            console.log('Not enough items in cart to remove.');
+          } else {
+            cartQuantity = newQuantity;
+          }
+        }
+
+        console.log(`Cart quantity: ${cartQuantity}`);
+      }
+
+      function resetCart() {
+        if (cartQuantity === 0) {
+          console.log('Cart is already empty.');
+        } else {
+          cartQuantity = 0;
+          console.log('Cart was reset.');
+        }
+      }
+    </script>
+  </body>
+</html>
