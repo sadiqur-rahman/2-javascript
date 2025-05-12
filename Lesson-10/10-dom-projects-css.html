@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>DOM Projects</title>
+    </head>
+  <body>
+    <!--
+    Subscribe Button
+      Algorithm:
+      1. if thet ext is "Subscribe" => "Subscribed"
+      2. else change it back to "Subscribe"
+    -->
+    <p>YouTube Subscribe Button</p>
+    <button class="js-subscribe-button" onclick="
+      subscribe();
+      ">Subscribe</button> 
+      
+    <br>
+    <br>
+      
+    <!--
+    Algorithm
+    1. Get the text into the text box
+    2. If amount < $40, add $10
+    3. Display the total on the page
+    -->
+    <P>Amazon Shipping Calculator</P>
+    <p>Orders under $40 = +$10 shipping.</p>
+    <p>Orders over $40 = FREE shipping.</p>
+    
+    <!--
+    1. clicks, keydowns => events
+    2. onclik, onkeydown => eventt listeners
+    3. event has object called: key
+    -->
+    <input onkeydown="
+      handleCostKeyDown(event)
+    " placeholder="Cost of order" class="js-cost-input">
+    
+    <button onclick="
+      calculateTotal();
+      ">Calculate</button>
+    <p class="js-total-cost"></p>
+
+    <script>
+    //Subscribe Button
+    function subscribe(){
+      const buttonElement = document.querySelector('.js-subscribe-button');
+      if(buttonElement.innerText === 'Subscribe') {
+        buttonElement.innerHTML = 'Subscribed';
+      } else {
+        buttonElement.innerHTML = 'Subscribe';
+      }  
+    }
+
+    //Amazon Shipping Calculator
+    function calculateTotal(){
+      const inputElement = document.querySelector('.js-cost-input');
+
+      //Type Coercion. Value Cost from DOM is a string, need to make it number.
+      let cost = Number(inputElement.value);
+      
+      if (cost < 40) {
+        cost = cost + 10;
+      }
+      document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+    }
+
+    //making a function for onkeydown
+    function handleCostKeyDown(event) {
+      if (event.key === 'Enter') {
+        calculateTotal();
+      }
+    }
+    </script>
+  </body>
+</html>
