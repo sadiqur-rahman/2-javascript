@@ -32,13 +32,24 @@
         alert("Please enter a task!");
         return;
       }
-      // If not empty, create a new list using DOM
-      document.querySelector('li').innerHTML = `${taskText} + <button class="js-remove-button" onclick="removeListItem()">Remove</button>`;
-      
-      // Create a remove button
-      function removeListItem() {
-        document.querySelector('li').remove(); // Remove the <li> element
-      }
+
+      // Create a new list item
+      const li = document.createElement('li');
+
+      // Set the content inside the <li>
+      li.innerHTML = `${taskText} <button onclick="this.parentElement.remove()">Remove</button>`;
+
+      // Create a remove button, it will not work because it will delete the first element not the specific one
+      //function removeListItem() {
+      //  document.querySelector('li').remove(); // Remove the <li> element
+      //}
+
+      // Add the new <li> to the task list
+      document.querySelector('.js-tasklist').appendChild(li);
+
+      // Clear the input
+      taskInput.value = "";
+
     }
   </script>
 </body>
