@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="js-button css-button" onclick="checkClass()">Test</button>
+
+  <script>
+    function checkClass() {
+      const result = document.querySelector('button').classList.contains('css-button');
+      console.log(result);
+    }
+  </script>
+</body>
+</html>
