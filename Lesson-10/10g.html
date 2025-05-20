@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10g</title>
   <style>
-    .button-element{
+    .button-element {
       border: none;
-      padding: 5px 15px 5px 15px;
+      padding: 5px 15px;
       border-radius: 3px;
       background-color: rgb(238, 238, 238);
       cursor: pointer;
     }
 
-    .is-toggled{
-      background-color: rgb(0, 0, 0);
+    .is-toggled {
+      background-color: black;
       color: white;
     }
   </style>
@@ -25,22 +25,20 @@
   <button class="button-element tech-button" onclick="isToggled('tech')">Tech</button>
 
   <script>
-    const buttonName = '';
-    function isToggled(buttonName){
-      const getButton = document.querySelector(`.${buttonName}-button`);
+    function isToggled(buttonName) {
+      // Get all three buttons
+      const gamingButton = document.querySelector('.gaming-button');
+      const musicButton = document.querySelector('.music-button');
+      const techButton = document.querySelector('.tech-button');
 
-      const gamingButton = document.querySelector(`.gamming-button`);
-      const musicButton = document.querySelector(`.music-button`);
-      const techButton = document.querySelector(`.tech-button`);
+      // First remove the toggle from all buttons
+      gamingButton.classList.remove('is-toggled');
+      musicButton.classList.remove('is-toggled');
+      techButton.classList.remove('is-toggled');
 
-      const toggleCheck = getButton.classList.contains('is-toggled');
-
-      if(toggleCheck) {
-        getButton.classList.remove('is-toggled');
-      } else {
-        getButton.classList.add('is-toggled');
-        gamingButton
-      }
+      // Then add the toggle only to the clicked one
+      const clickedButton = document.querySelector(`.${buttonName}-button`);
+      clickedButton.classList.add('is-toggled');
     }
   </script>
 </body>
