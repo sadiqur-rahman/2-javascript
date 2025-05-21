@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>10h</title>
+      <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .subscribe-button {
+          border: none;
+          background-color: black;
+          color: white;
+          font-weight: bold;
+          padding: 10px 15px 10px 15px;
+          border-radius: 50px;
+          cursor: pointer;
+          margin-bottom: 35px;
+        }
+
+        .is-subscribed {
+          background-color: rgb(240, 240, 240);;
+          color: black;
+        }
+
+        .cost-input {
+          padding: 10px;
+          font-size: 15px;
+        }
+
+        .calculate-button {
+          background-color: green;
+          color: white;
+          border: none;
+          padding: 12px 15px 12px 15px;
+          font-size: 15px;
+          cursor: pointer;
+        }
+
+        .clear-button {
+          display: none; /* Initially hidden */
+          background-color: red;
+          color: white;
+          border: none;
+          padding: 12px 15px 12px 15px;
+          font-size: 15px;
+          cursor: pointer;
+        }
+
+        .js-total-cost{
+          color: red;
+        }
+      </style>
+    </head>
+  <body>  
+    <!--
+    Algorithm
+    1. Get the text into the text box
+    2. If amount < $40, add $10
+    3. Display the total on the page
+    -->
+    <P>Amazon Shipping Calculator</P>
+    <p>Orders under $40 = +$10 shipping.</p>
+    <p>Orders over $40 = FREE shipping.</p>
+    
+    <!--
+    1. clicks, keydowns => events
+    2. onclick, onkeydown => event listeners
+    3. event has object called: key
+    -->
+
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+      <input type="number" class="js-cost-input cost-input" onkeydown="
+      handleCostKeyDown(event)
+    " placeholder="Cost of order">
+      <button class="calculate-button" onclick="calculateTotal();">Calculate</button>
+      <button class="js-clear clear-button" onclick="clearInput();">Clear</button>
+    </div>
+
+    <p class="js-total-cost"></p>
+
+    <script>
+    //Amazon Shipping Calculator
+    function calculateTotal(){
+      const inputElement = document.querySelector('.js-cost-input');
+      const value = inputElement.value.trim(); // Get and clean the input
+
+      // Always show the clear button once input is evaluated
+      document.querySelector('.js-clear').style.display = 'block';
+      
+      // Check if input is empty, not a number, or less than or equal to 0
+      if (value === '' || isNaN(Number(value)) || Number(value) < 0) {
+        document.querySelector('.js-total-cost').innerHTML = 'Error: cost cannot be less than $0';
+        return; // Exit the function early if input is invalid
+      }
+
+      let cost = Number(value) * 100;
+      if (cost < 4000) {
+        cost = (cost + 1000) / 100;
+        //Decimal point handling: .toFixed(2)
+        document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+      } else {
+        cost = cost / 100;
+        document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+      }
+    }
+
+    //making a function for onkeydown
+    function handleCostKeyDown(event) {
+      if (event.key === 'Enter') {
+        calculateTotal();
+      }
+    }
+
+    //Clear the input value
+    function clearInput() {
+      document.querySelector('.js-cost-input').value = '';
+      document.querySelector('.js-total-cost').innerHTML = '';
+      document.querySelector('.js-clear').style.display = 'none'; // Hide the button even for error
+    }
+    </script>
+  </body>
+</html>
