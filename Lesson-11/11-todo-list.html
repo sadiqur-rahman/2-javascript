@@ -17,10 +17,21 @@
   <input class="js-input1" placeholder="Write your task">
   <button onclick="addTask1()">Add</button>
 
-  <p class="p-todo2">To-do List Practice - 2 (See webpage)</p>
+
+  <p class="p-todo2">To-do List Practice - 2</p>
   <input class="js-input2" placeholder="Write your task">
-  <button onclick="addTodoList()">Add</button>
-  <p></p>
+  <button onclick="addTask2()">Add</button>
+  <div class="js-todo-list1">
+    <p></p>
+  </div>
+
+
+  <p class="p-todo2">To-do List Practice - 3 (Using Loop and Array)</p>
+  <input class="js-input3" placeholder="Write your task">
+  <button onclick="addTask3()">Add</button>
+  <div class="js-todo-list2">
+    <p></p>
+  </div>
   
   <script>
     // To-do List 1
@@ -33,14 +44,24 @@
       inputElement.value = ''; // Clear the input after enter.
     }
 
-    // To-do List 2
-    const myTodoList2 = [];
-    const inputElement2 = document.querySelector('.js-input2');
 
-    function addTodoList() {
-      const task = inputElement2.value;
-      for(let i = 0; i < )
+    // To-do List 2
+    let todoList = [];
+    const todoInputElement = document.querySelector('.js-input2');
+    
+    function addTask2() {
+      let todo = todoInputElement.value;
+      todoList += `<p>${todo}</p>`;
+      
+      todoInputElement.value = '';
+      console.log(todoList);
+
+      document.querySelector('.js-todo-list1').innerHTML = todoList;
     }
+
+
+    // To-do List 3: UsingArray to Store, then Loop to Show
+    
   </script>
 </body>
 </html>
