@@ -6,8 +6,11 @@
   <title>Arrays and Loops</title>
 </head>
 <body>
+  <p class="js-list-preview"></p>
   
   <script>
+    // Practicing Array
+    /*
     const myArray = [10, 20, 30];
     console.log(myArray);
     console.log(myArray[0]);
@@ -31,6 +34,51 @@
 
     myArray3.pop();
     console.log(myArray3);
+    */
+
+
+
+    // Practicing Loop
+    const myItems = ['socks', 'basketball', 'roaster'];
+    for(let i=0; i<myItems.length; i++) {
+      console.log(myItems[i]);
+    }
+
+
+
+    // Calculate total of numbers from an array
+    // Accumulator Pattern
+    const nums = [1, 1, 3];
+    let total = 0; // Accumulator var
+
+    for(i=0; i<nums.length; i++) {
+      num = nums[i];
+      total += num; // Accumulator pattern
+    }
+    console.log(total);
+
+    // 1, 1, 2 -> 2, 2, 6
+    const numDoubled = []; // Accumulator array
+
+    for(let i = 0; i < nums.length; i++) {
+      const num = nums[i];
+      //numDoubled[i] = num;
+      numDoubled.push(num  * 2);
+    }
+    console.log(numDoubled);
+
+    
+
+    // For Loop showing 
+    const items = ['sock', 'pant', 'dress'];
+    const listPreview = document.querySelector('.js-list-preview');
+    let finalList = ''; // Accumulator array
+
+    for(let i = 0; i < items.length; i++) {
+      let item = items[i];
+      finalList += `<p>${item}</p>`; // Accumulator Pattern
+    }
+    listPreview.innerHTML = finalList;
   </script>
 </body>
 </html>
