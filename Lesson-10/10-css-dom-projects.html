@@ -120,9 +120,11 @@
         cost = (cost + 1000) / 100;
         //Decimal point handling: .toFixed(2)
         document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+        inputElement.value = ''; // Clear the input after enter.
       } else {
         cost = cost / 100;
         document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+        inputElement.value = ''; // Clear the input after enter.
       }
     }
 

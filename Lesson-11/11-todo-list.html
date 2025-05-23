@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>To-do List</title>
+  <style>
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <p>To-do List Practice - 1 (See console)</p>
+  <input class="js-input1" placeholder="Write your task">
+  <button onclick="addTask1()">Add</button>
+
+  <p>To-do List Practice - 2 (See webpage)</p>
+  <input class="js-input2" placeholder="Write your task">
+  <button>Add</button>
+  
+  <script>
+    const myTodoList1 = [];
+    const inputElement = document.querySelector(".js-input1");
+
+    function addTask1() {
+      myTodoList1.push(inputElement.value);
+      console.log(myTodoList1);
+      alert('Added.');
+      inputElement.value = ''; // Clear the input after enter.
+    }
+  </script>
+</body>
+</html>
