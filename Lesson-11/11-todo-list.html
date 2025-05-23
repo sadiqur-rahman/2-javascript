@@ -27,9 +27,9 @@
 
 
   <p class="p-todo2">To-do List Practice - 3 (Using Loop and Array)</p>
-  <input class="js-input3" placeholder="Write your task">
-  <button onclick="addTask3()">Add</button>
-  <div class="js-todo-list2">
+  <input class="js-todo-input" placeholder="Write your task">
+  <button onclick="addListItems()">Add</button>
+  <div class="js-list-preview">
     <p></p>
   </div>
   
@@ -52,7 +52,7 @@
     function addTask2() {
       let todo = todoInputElement.value;
       todoList += `<p>${todo}</p>`;
-      
+
       todoInputElement.value = '';
       console.log(todoList);
 
@@ -60,8 +60,30 @@
     }
 
 
-    // To-do List 3: UsingArray to Store, then Loop to Show
+    // To-do List 3: Using Array to Store, then Loop to show
+    const myTodoList = [];
     
+    function addListItems() {
+      const todoInput = document.querySelector('.js-todo-input');
+      const todo = todoInput.value;
+
+      myTodoList.push(todo);
+      todoInput.value = '';
+
+      console.log(myTodoList);
+      showListItems()
+    }
+
+    function showListItems() {
+      let todoListHTML = ''; // Accumulator array
+      const listPreview = document.querySelector('.js-list-preview');
+      
+      for(let i = 0; i < myTodoList.length; i++) {
+        const todoName = myTodoList[i];
+        todoListHTML += `<p>${todoName}</p>`;
+      }
+      listPreview.innerHTML = todoListHTML;
+    }
   </script>
 </body>
 </html>
