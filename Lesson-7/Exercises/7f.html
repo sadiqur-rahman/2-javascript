@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>7f</title>
+    </head>
+  <body>
+    <p>Temparature Converter</p>
+    <script>
+      function convertTemp(temp, unit){
+        if(unit === 'C'){
+          const f =  (temp * 9 / 5) + 32;
+          console.log(`${f}F`);
+        } else{
+          const c =  ((temp - 32) * 5) / 9;
+          console.log(`${c}C`);
+        }
+      }
+
+      convertTemp(25, 'C');
+      convertTemp(86, 'F');
+    </script>
+  </body>
+</html>
