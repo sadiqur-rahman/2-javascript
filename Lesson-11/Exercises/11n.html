@@ -14,24 +14,23 @@
         return;
       }
 
-      let firstWord = words[0];
-      let count = 1;
+      let result = {};
 
-      for (let i = 1; i < words.length; i++) {
-        if (words[i] === firstWord) {
-          count++;
+      for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+
+        if (result[word]) {
+          result[word]++;
+        }
+        else {
+          result[word] = 1;
         }
       }
 
-      let countWords = {
-        wordName: firstWord,
-        count: count
-      }
-
-      console.log(countWords);
+      console.log(result);
     }
 
-    numsOfWords(['apple', 'apple', 'mango']);
+    numsOfWords(['apple', 'apple', 'mango', 'mango', 'mango']);
   </script>
 </body>
 </html>
