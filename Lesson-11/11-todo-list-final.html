@@ -2,61 +2,71 @@
 <html lang="en">
 <head>
   <title>To-do List</title>
-  <style>
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .todo-row{
-      display: block;
-    }
-  </style>
 </head>
 <body>
   <p>To-do List</p>
   <div>
-    <input class="js-todo-input" placeholder="Write your task">
+    <input type="text" class="js-todo-input" placeholder="Write your task">
+    <input type="date" class="js-todo-date">
     <button onclick="addListItems()">Add</button>
   </div>
   
   <div class="todo-list js-todo-list"></div>
   
   <script>
-    // To-do List 3: Using Array to Store, then Loop to show
+    // To-do List 3: Using Array to Store
     const myTodoList = [];
     
     function addListItems() {
       const todoInput = document.querySelector('.js-todo-input');
-      const todo = todoInput.value;
+      const name = todoInput.value;
 
-      myTodoList.push(todo);
+      const todoDate = document.querySelector('.js-todo-date');
+      const date = todoDate.value;
+
+      myTodoList.push({
+        //name: name, 
+        //date: date
+        name,
+        date
+      });
       todoInput.value = '';
+      todoDate.value = '';
 
       console.log(myTodoList);
       showListItems()
     }
 
+    // Showing the To-do list Items 
     function showListItems() {
       let todoListHTML = ''; // Accumulator array
       const listPreview = document.querySelector('.js-todo-list');
       
       for(let i = 0; i < myTodoList.length; i++) {
-        const todoName = myTodoList[i];
-        // Accumulator Pattern
+        const todoObject = myTodoList[i]; // Accumulator Pattern
+        //const name = todoObject.name;
+        //const date = todoObject.date;
+        const {name, date} = todoObject; //Destructuring
+
+        // Making a Delete button
         todoListHTML += `
           <div class="todo-row">
-            <div>${todoName}</div>
-            <button>
-              Delete
-            </button>
+            <p>
+              ${name} ${date}
+              <button onclick="
+                myTodoList.splice(${i},1);
+                showListItems();
+                console.log(myTodoList);
+                ">
+                Delete
+              </button>
+            </p>
           </div>
           `;
       }
       listPreview.innerHTML = todoListHTML;
     }
 
-    function removeTodoList() {
-    }
   </script>
 </body>
 </html>
