@@ -10,6 +10,7 @@
   <div class="js-list-preview"></div>
   
   <script>
+    /*
     // Practicing Array
     
     const myArray = [10, 20, 30];
@@ -80,6 +81,63 @@
       finalList += `<p>${item}</p>`; // Accumulator Pattern
     }
     listPreview.innerHTML = finalList;
+    */
+
+    const array1 = [1, 2, 3];
+    const array2 = array1.slice(); // Contains the reference not he actual value
+
+    array2.push(4);
+    console.log(array1);
+    console.log(array2);
+
+    // destrucring
+    const [firstValue, secondValue] = [1, 2, 3];
+    
+    // loop 
+    // 1. break = exit a loop early
+    // 2. continue = skip 1 iteration
+    for (let i = 1; i <= 10; i++) {
+      if (i % 3 === 0) {
+        continue;
+      }
+      console.log(i);
+      if (i == 8) {
+        break;
+      }
+    }
+
+    let i = 1;
+    
+    while (i<= 10) {
+      if (i % 3 === 0) {
+        i++;
+        continue;
+      }
+      console.log(i);
+      i++;
+    }
+
+    // 1, 1, 2 -> 2, 2, 6
+    function doubleArray(nums) {
+      const numDoubled = []; // Accumulator array
+
+      for(let i = 0; i < nums.length; i++) {
+        const num = nums[i];
+        //numDoubled[i] = num;
+        if (num == 0) {
+          //break;
+          // 3. return can be used to breakout from loop
+          return numDoubled;
+        }
+        numDoubled.push(num  * 2);
+      }
+      //console.log(numDoubled);
+      return numDoubled;
+    }
+
+    console.log(doubleArray([1, 1, 3, 0, 5]));
+    
+
   </script>
 </body>
 </html>
