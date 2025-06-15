@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11p</title>
+</head>
+<body>
+  <p>11p. Searching a given string from array and return only for the first time.</p>
+</body>
+
+<script>
+  function checkString(name) {
+    for (let i = 0; i < name.length; i++) {
+      if (name[i] === 'search') {
+        console.log(i);
+      }
+    }
+  }
+
+  console.log('Return each index having search.');
+  checkString(['hello','world','search','good']);
+
+  console.log('Return each index having search.');
+  checkString(['hello','world','good']);
+
+  console.log('Return each index having search.');
+  checkString(['hello','world','search','search', 'search']);
+
+  function returnFirstPosition(array) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === 'search') {
+        console.log(i);
+        break;
+      }
+    }
+  }
+
+  console.log('Return the first index having search.');
+  returnFirstPosition(['hello','world','search','search', 'search']);
+
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11q</title>
+</head>
+<body>
+  <p>11q. Searching a given string from array as the search value given as parameter.</p>
+</body>
+
+<script>
+  function checkString(array, name) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === name) {
+        console.log(i);
+        return;
+      }
+    }
+    console.log(-1);
+  }
+  console.log('Return each index having search.');
+  checkString(['green','red','blue','red'], 'red');
+
+  console.log('Return each index having search.');
+  checkString(['green','red','blue','red'], 'yellow');
+  
+</script>
+</html>

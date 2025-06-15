@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11r</title>
+</head>
+<body>
+  <script>
+    function removeEgg(food) {
+      for (let i = 0; i < food.length; i++) {
+        if (food[i] == 'egg') {
+          //food.pop(food[i]);
+          // pop() always removes the last element of the array. It does not take any argument. So pop(food[i]) is the same as pop() — it removes the last item regardless of what you're trying to target.
+          continue;
+        }
+        console.log(food[i]);
+      }
+    }
+
+    removeEgg(['egg', 'apple', 'egg', 'egg', 'ham']);
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11o</title>
+</head>
+<body>
+  <p>11o. Searching a given string from array.</p>
+</body>
+
+<script>
+  function checkString(name) {
+    for (let i = 0; i < name.length; i++) {
+      if (name[i] === 'search') {
+        console.log(i);
+        return;
+      }
+    }
+    console.log(-1);
+  }
+  console.log('Return each index having search.');
+  checkString(['hello','world','search','good']);
+  
+  console.log('Return each index having search.');
+  checkString(['hello','world','good']);
+</script>
+</html>
