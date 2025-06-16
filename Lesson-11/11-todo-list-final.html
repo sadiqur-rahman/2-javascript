@@ -73,6 +73,31 @@
       const todoDate = document.querySelector('.js-todo-date');
       const date = todoDate.value;
 
+      if (name === '') {
+        alert('Enter a todo name.');
+      } else {
+          myTodoList.push({
+          //name: name, 
+          //date: date
+          name,
+          date
+        });
+        todoInput.value = '';
+        todoDate.value = '';
+
+        console.log(myTodoList);
+        showListItems()
+      }
+    }
+
+    /*
+    function addListItems() {
+      const todoInput = document.querySelector('.js-todo-input');
+      const name = todoInput.value;
+
+      const todoDate = document.querySelector('.js-todo-date');
+      const date = todoDate.value;
+
       myTodoList.push({
         //name: name, 
         //date: date
@@ -85,6 +110,7 @@
       console.log(myTodoList);
       showListItems()
     }
+*/
 
     // Showing the To-do list Items 
     function showListItems() {

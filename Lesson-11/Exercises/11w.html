@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11q</title>
+</head>
+<body>
+</body>
+
+<script>
+  function findIndex(array, name) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === name) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  function unique(array) {
+    const uniqueItems = [];
+
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i];
+
+      if (findIndex(uniqueItems, item) === -1) {
+        uniqueItems.push(item);
+      }
+    }
+    
+    return uniqueItems;
+  }
+
+  console.log(unique(['green', 'red', 'blue', 'red']));
+  console.log(unique(['red', 'green', 'green', 'red']));
+  
+</script>
+</html>
