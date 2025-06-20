@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asynchronous Code</title>
+</head>
+<body>
+  
+  <script>
+    // Asynchronous Code: will not wait for a line to finish before going to the next line.
+    // Advantages: 
+    // a. doing things in the background.
+    setTimeout(function() {
+      // Synchronous Code: will wait for a line to finish before going to the next line.
+      console.log('timeout');
+      console.log('timeout2');
+    }, 3000);
+    console.log('next line');
+
+
+    
+    setInterval(function() {
+      console.log('interval');
+    }, 3000);
+    console.log('next line 2');
+  </script>
+</body>
+</html>
