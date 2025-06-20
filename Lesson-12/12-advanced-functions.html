@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Funtions</title>
+</head>
+<body>
+  
+  <script>
+    // 1. Calling (Running) the function
+    // Advantages: 
+    // a. Easier to read 
+    // b. Hoisting: calling before creating/ no need to follow order
+    greeting();
+    function greeting() {
+      console.log('hello');
+    }
+    greeting();
+
+
+
+    // 2. Functions are another type of values. 
+    // We can save function is a variable. 
+    // Disadvantages: 
+    // a. No support for Hoisting
+    const function1 = function greeting() {
+      console.log('hello');
+    }
+    console.log(function1);
+    console.log(typeof(function1));
+    function1(); // Calling the variable like function
+
+
+
+    // 3. Anonymous Function: has no name
+    const function1_2 = function() {
+      console.log('hello2/anonymous');
+    }
+    console.log(function1_2);
+    console.log(typeof(function1_2));
+    function1_2(); // Calling the variable like function
+
+
+
+    // 4. Method: function (anonymous) saved inside an object
+    const object = {
+      num: 2,
+      myFunc: function () {
+        console.log('hello3');
+      }
+    }
+    object.myFunc();
+
+
+
+    // 5. Passing a value into a function
+    function display(param) {
+      console.log(param);
+    }
+    display(2);
+
+
+    // 6. Passing a function (called: Callback) into another function
+    function run(param) {
+      param();
+    }
+    run(function () {
+      console.log('hello4');
+    });
+    
+  </script>
+</body>
+</html>
