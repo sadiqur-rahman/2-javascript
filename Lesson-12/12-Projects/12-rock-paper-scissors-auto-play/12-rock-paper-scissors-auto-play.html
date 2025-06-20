@@ -96,7 +96,6 @@
       //Auto Play Tracker
       let isAutoPlaying = false;
       let intervalID; 
-
       //Auto playing the game
       function autoPlay() {
         if (!isAutoPlaying) {
@@ -105,9 +104,11 @@
           playGame(playerMove);
           }, 1000);
           isAutoPlaying = true;
+          document.querySelector('.auto-play-button').textContent = `Stop`;
         } else {
           clearInterval(intervalID);
           isAutoPlaying = false;
+          document.querySelector('.auto-play-button').textContent = `Auto Play`;
         }
       }
 
