@@ -20,7 +20,7 @@
         .move {
           margin-bottom: 60px;
         }
-        .reset-score-button {
+        .reset-score-button, .auto-play-button {
           background-color: white;
           border: none;
           font-size: 15px;
@@ -79,6 +79,8 @@
       console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
     ">Reset Score</button>
 
+    <button class="auto-play-button" onclick="autoPlay()">Auto Play</button>
+
     <script>
       let score = JSON.parse(localStorage.getItem('score')) || {
         wins: 0,
@@ -90,6 +92,24 @@
 
       //Keeping the score showing even after the reload
       updateScoreElement();
+
+      //Auto Play Tracker
+      let isAutoPlaying = false;
+      let intervalID; 
+
+      //Auto playing the game
+      function autoPlay() {
+        if (!isAutoPlaying) {
+          intervalID = setInterval(function() {
+          const playerMove = pickComputerMove();
+          playGame(playerMove);
+          }, 1000);
+          isAutoPlaying = true;
+        } else {
+          clearInterval(intervalID);
+          isAutoPlaying = false;
+        }
+      }
 
       //Playing the Game
       function playGame(playerMove){
