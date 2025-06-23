@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12b</title>
+</head>
+<body>
+  
+</body>
+<script>
+  const add = function() {
+    console.log(2+3);
+  };
+
+  function runTwice(fun) {
+    fun();
+    fun();
+  }
+
+  // 1. Direct Function as parameter 
+  runTwice(function() {console.log('12b');});
+
+  // 2. Variable (Indirect Function) as parameter 
+  runTwice(add);
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12f</title>
+  <style>
+    .finish-button, .added-msg{
+      font-size: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <button class="js-finish-button finish-button" onclick="addToCart()">Add to cart</button>
+  <p class="js-added-msg added-msg"></p>
+</body>
+<script>
+  let timeOutID;
+
+  function addToCart() {
+    clearTimeout(timeOutID);
+    msgElement = document.querySelector('.js-added-msg');
+    msgElement.textContent = 'Added';
+
+    timeOutID = setTimeout(function() {
+      msgElement.textContent = '';
+    }, 2000);
+  }
+</script>
+</html>

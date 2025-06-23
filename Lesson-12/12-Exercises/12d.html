@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12d</title>
+  <style>
+    .finish-button{
+      font-size: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <button class="js-finish-button finish-button" onclick="runStart()">Start</button>
+</body>
+<script>
+  let isStart = false;
+  
+  function runStart() {
+    document.querySelector('.js-finish-button').textContent = 'Loading...';
+
+    setTimeout(() => {
+      if(!isStart) {
+      document.querySelector('.js-finish-button').textContent = 'Finished!';
+    }}, 1000);
+  }
+</script>
+</html>
