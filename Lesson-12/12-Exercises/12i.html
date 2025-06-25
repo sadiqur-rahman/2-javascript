@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>12h / App</title>
+  <title>12i / App</title>
 </head>
 <body>
   <button onclick="addMessage()">Add</button>
@@ -13,35 +13,31 @@
     let messages = 0;
     let getIntervalID;
 
+    function updateTitle() {
+      if (document.title === '12i / App') {
+        document.title = `(${messages}) New messages`;
+      } else {
+        document.title = '12i / App';
+      }
+    }
+
     function addMessage() {
       clearInterval(getIntervalID);
       messages++;
-      getIntervalID = setInterval(function() {
-        if (document.title === '12h / App') {
-          document.title = `(${messages}) New messages`;
-        } else {
-          document.title = '12h / App';
-        }
-      }, 1000);
+      getIntervalID = setInterval(updateTitle, 1000);
     }
 
     function removeMessage() {
       clearInterval(getIntervalID);
       messages--;
       if (messages <= 0) {
-        document.title = '12h / App';
         messages = 0;
-        return;
+        document.title = '12i / App';
       } else {
-        setInterval(function() {
-          if (document.title === '12h / App') {
-            document.title = `(${messages}) New messages`;
-          } else {
-            document.title = '12h / App';
-          }
-          }, 1000);
-        }
+        getIntervalID = setInterval(updateTitle, 1000); 
+      }
     }
+
   </script>
 </body>
 </html>
