@@ -7,6 +7,7 @@
           background-color: rgb(25, 25, 25);
           color: white;
           font-family: Arial;
+          text-align: center;
         }
         .title {
           font-size: 30px;
@@ -20,11 +21,29 @@
         .move {
           margin-bottom: 60px;
         }
-        .reset-score-button, .auto-play-button {
-          background-color: white;
+        .auto-play-button {
+          background-color: green;
+          color: white;
           border: none;
+          border-radius: 50px;
           font-size: 15px;
           padding: 8px 15px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        .show-stop {
+          background-color: red;
+        }
+        .reset-score-button {
+          background-color: gray;
+          border: none;
+          border-radius: 50px;
+          font-size: 15px;
+          padding: 8px 15px;
+          margin-right: 10px;
+        }
+        .show-reset {
+          background-color: white;
           cursor: pointer;
         }
         .move-button {
@@ -61,9 +80,12 @@
     <p class="js-moves move"></p>
     <p class="js-score"></p>
 
-    <button class="reset-score-button js-reset-button">Reset Score</button>
+    <p><button class="auto-play-button js-auto-play">Auto Play</button></p>
 
-    <button class="auto-play-button js-auto-play-button">Auto Play</button>
+    <p><button class="reset-score-button js-reset">Reset Score</button></p>
+    
+
+    
 
     <script>
       let score = JSON.parse(localStorage.getItem('score')) || {
@@ -77,16 +99,17 @@
       //Keeping the score showing even after the reload
       updateScoreElement();
 
-      //Auto Play Tracker
+
+      //Auto Play Button
+      document.querySelector('.js-auto-play')
+        .addEventListener('click', () => {
+                autoPlay();
+        });
+
+      //Auto Playing
       let isAutoPlaying = false;
       let intervalID; 
 
-      document.querySelector('.js-auto-play-button')
-        .addEventListener('click', () => {
-          autoPlay();
-        })
-
-      //Auto playing the game
       function autoPlay() {
         if (!isAutoPlaying) {
           intervalID = setInterval(() => {
@@ -94,17 +117,22 @@
           playGame(playerMove);
           }, 1000);
           isAutoPlaying = true;
-          document.querySelector('.auto-play-button').textContent = `Stop`;
+          document.querySelector('.js-auto-play').textContent = `Stop`;
+          document.querySelector('.js-reset').textContent = 'Reset Score';
+          document.querySelector('.js-auto-play').classList.add('show-stop');
+          document.querySelector('.js-reset').classList.add('show-reset');
         } else {
           clearInterval(intervalID);
           isAutoPlaying = false;
-          document.querySelector('.auto-play-button').textContent = `Auto Play`;
+          document.querySelector('.js-auto-play').textContent = `Auto Play`;
+          document.querySelector('.js-auto-play').classList.remove('show-stop'); 
         }
       }
 
       //document.querySelector('.js-rock-button')
       //  .addEventListener('click', playGame('Rock')); // This will not work as function, we need to create one.
 
+      // Move buttons
       document.querySelector('.js-rock-button')
         .addEventListener('click', () => {
           playGame('Rock');
@@ -200,8 +228,29 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
           .innerHTML = `You <img src="images/${playerMove}-emoji.png" class="move-icon"> <img src="images/${computerMove}-emoji.png" class="move-icon"> Computer.`;
       }
 
-      document.querySelector('.js-reset-button')
+      // Checking if the score empty or not
+      if (score.wins > 0 || score.losses > 0 || score.ties > 0) {
+        document.querySelector('.js-reset').classList.add('show-reset'); 
+      } else {
+        document.querySelector('.js-reset').classList.remove('show-reset');
+        document.querySelector('.js-reset').textContent = 'No scores yet!';
+      }
+
+      // Reset button
+      document.querySelector('.js-reset')
         .addEventListener('click', () => {
+          /*
+          // Checking if the score empty or not
+          if (score.wins > 0 || score.losses > 0 || score.ties > 0) {
+          
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          } else {
+          document.querySelector('.js-reset').classList.remove('show-reset');
+          document.querySelector('.js-reset').textContent = 'No scores yet!';
+          }
+
+          */
+         
           score.wins = 0;
           score.losses = 0;
           score.ties = 0;
@@ -211,7 +260,23 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
           updateScoreElement();
 
           console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+
+          if(isAutoPlaying) {
+            clearInterval(intervalID);
+            isAutoPlaying = false;
+            document.querySelector('.auto-play-button').textContent = `Auto Play`;
+            document.querySelector('.js-auto-play').classList.remove('show-stop'); 
+          }
+
+
+          
+
+          document.querySelector('.js-reset').classList.remove('show-reset');
+
+          document.querySelector('.js-reset').textContent = 'Done!';
         });
+
+        
 
       //Updates score into HTML
       function updateScoreElement() {
