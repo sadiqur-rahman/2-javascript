@@ -117,7 +117,7 @@
       let todoListHTML = ''; // Accumulator array
       const listPreview = document.querySelector('.js-todo-list');
       
-      myTodoList.forEach(function(todoObject, index) {
+      myTodoList.forEach((todoObject, index) => {
         const {name, date} = todoObject; //Destructuring
         // Making a Delete button
         todoListHTML += `

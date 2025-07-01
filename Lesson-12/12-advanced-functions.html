@@ -6,6 +6,7 @@
   <title>Advanced Funtions</title>
 </head>
 <body>
+  <button onclick="" class="js-button">Click</button>
   
   <script>
     // 1. Calling (Running) the function
@@ -93,6 +94,83 @@
       console.log(index);
       console.log(value);
     });
+
+
+
+    // 8. Arrow Functions & Reguler Function
+    const arrowFunction = (param, param2) => {
+      console.log('hello');
+      return 5;
+    };
+
+    const regulerFunction = function(param, param2) {
+      console.log('hello');
+      return 5;
+    };
+
+    arrowFunction();
+    regulerFunction();
+
+    [
+      'make dinner',
+      'wash dishes',
+      'watch youtube'
+    ].forEach((value, index) => {
+      if(value === 'wash dishes') {
+        return;
+      }
+
+      console.log(index);
+      console.log(value);
+    });
+
+
+
+    // 9. Shortcuts of Arror Function
+    // a. single parameter dont need braces.
+    const oneParam = param => {
+      console.log(param + 1);
+    };
+
+    oneParam(2);
+
+    // b. single line return statement dont need curly brace and return statement.
+    const oneLine = () =>  2 + 3;
+
+    console.log(oneLine());
+    
+
+
+    // Putting Arrow Func inside and Object
+    const object2 = {
+      method: () => {
+
+      },
+      // Recomended Shortcut
+      method2() {}
+    };
+
+    // 10. Add Event Listener: 
+    // a. Get the button by class
+    // b. Every HTML Element has a method called addEventListener(). It has 2 parameters. 1. event, 2. a function to run.
+    // c. We can have as many onclick event listener for one event
+    const buttonElement = document.querySelector('.js-button');
+
+    const eventListener = () => {
+      console.log('cLick');
+    };
+    buttonElement.addEventListener('click', eventListener);
+
+
+
+
+    // 11. removeEventListener(). @ paramaeters. a. event, b. function to remove (putting it in a var)
+    buttonElement.removeEventListener('click', eventListener);
+
+    buttonElement.addEventListener('click', () => {
+      console.log('cLick2');
+    });
+
   </script>
 </body>
 </html>
