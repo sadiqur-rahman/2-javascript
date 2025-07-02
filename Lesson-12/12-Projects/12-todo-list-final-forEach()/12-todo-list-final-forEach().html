@@ -15,10 +15,6 @@
       font-size: 15px;
       padding: 6px;
     }
-
-    .js-todo-date{
-    }
-
     .add-button{
       border: none;
       color: white;
@@ -57,12 +53,16 @@
   <div class="todo-name-date-input-grid">
     <input type="text" class="js-todo-input" placeholder="Todo name">
     <input type="date" class="js-todo-date">
-    <button onclick="addListItems()" class="add-button">Add</button>
+    <button class="add-button">Add</button>
   </div>
   
   <div class="todo-list-grid js-todo-list"></div>
   
   <script>
+    document.querySelector('.add-button').addEventListener('click', () => {
+      addListItems();
+    });
+
     // To-do List 3: Using Array to Store
     const myTodoList = [];
     
@@ -90,28 +90,6 @@
       }
     }
 
-    /*
-    function addListItems() {
-      const todoInput = document.querySelector('.js-todo-input');
-      const name = todoInput.value;
-
-      const todoDate = document.querySelector('.js-todo-date');
-      const date = todoDate.value;
-
-      myTodoList.push({
-        //name: name, 
-        //date: date
-        name,
-        date
-      });
-      todoInput.value = '';
-      todoDate.value = '';
-
-      console.log(myTodoList);
-      showListItems()
-    }
-*/
-
     // Showing the To-do list Items 
     function showListItems() {
       let todoListHTML = ''; // Accumulator array
@@ -123,16 +101,25 @@
         todoListHTML += `
             <div>${name}</div>
             <div>${date}</div>
-            <button class="todo-delete" onclick="
-              myTodoList.splice(${index},1);
-              showListItems();
-              console.log(myTodoList);
-              ">
+            <button class="todo-delete js-delete">
               Delete
             </button>
           `;
       });
       listPreview.innerHTML = todoListHTML;
+
+      document.querySelectorAll('.js-delete')
+        .forEach((deleteButton, index) => {
+          deleteButton.addEventListener('click', () => {
+            // Closures index from the forEach loop 
+            console.log(`Delete button clicked for index: ${index}`);
+            myTodoList.splice(index, 1);
+            showListItems();
+          })
+        });
+
+        // gives ReferenceError: index is not defined
+        //console.log(`Delete button clicked for index: ${index}`);
 
       /*
       for(let i = 0; i < myTodoList.length; i++) {
