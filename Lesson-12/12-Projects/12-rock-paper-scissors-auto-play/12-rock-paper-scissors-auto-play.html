@@ -154,6 +154,25 @@
           document.querySelector('.js-reset').textContent = `Reset Score`;
         });
 
+      // Adding event listeners to the body by the keydown event
+      // Special object returned by the event is called 'event'
+      // We can use event.key to get the key pressed by the user
+      document.body.addEventListener('keydown', (event) => {
+        if(event.key === 'r' || event.key === 'R') {
+          playGame('Rock');
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          document.querySelector('.js-reset').textContent = `Reset Score`;
+        } else if(event.key === 'p' || event.key === 'P') {
+          playGame('Paper');
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          document.querySelector('.js-reset').textContent = `Reset Score`;
+        } else if(event.key === 's' || event.key === 'S') {
+          playGame('Scissors');
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          document.querySelector('.js-reset').textContent = `Reset Score`;
+        }
+      });
+
       //Playing the Game
       function playGame(playerMove){
         const computerMove = pickComputerMove();
