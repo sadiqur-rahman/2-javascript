@@ -136,16 +136,22 @@
       document.querySelector('.js-rock-button')
         .addEventListener('click', () => {
           playGame('Rock');
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          document.querySelector('.js-reset').textContent = `Reset Score`;
         });
 
       document.querySelector('.js-paper-button')
         .addEventListener('click', () => {
           playGame('Paper');
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          document.querySelector('.js-reset').textContent = `Reset Score`;
         });
 
       document.querySelector('.js-scissors-button')
         .addEventListener('click', () => {
           playGame('Scissors');
+          document.querySelector('.js-reset').classList.add('show-reset'); 
+          document.querySelector('.js-reset').textContent = `Reset Score`;
         });
 
       //Playing the Game
@@ -239,18 +245,9 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
       // Reset button
       document.querySelector('.js-reset')
         .addEventListener('click', () => {
-          /*
+          
           // Checking if the score empty or not
           if (score.wins > 0 || score.losses > 0 || score.ties > 0) {
-          
-          document.querySelector('.js-reset').classList.add('show-reset'); 
-          } else {
-          document.querySelector('.js-reset').classList.remove('show-reset');
-          document.querySelector('.js-reset').textContent = 'No scores yet!';
-          }
-
-          */
-         
           score.wins = 0;
           score.losses = 0;
           score.ties = 0;
@@ -261,19 +258,19 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
 
           console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
 
-          if(isAutoPlaying) {
-            clearInterval(intervalID);
-            isAutoPlaying = false;
-            document.querySelector('.auto-play-button').textContent = `Auto Play`;
-            document.querySelector('.js-auto-play').classList.remove('show-stop'); 
+            if(isAutoPlaying) {
+              clearInterval(intervalID);
+              isAutoPlaying = false;
+              document.querySelector('.auto-play-button').textContent = `Auto Play`;
+              document.querySelector('.js-auto-play').classList.remove('show-stop');
+
+              document.querySelector('.js-reset').classList.remove('show-reset');
+              document.querySelector('.js-reset').textContent = 'Done';
+            } else {
+              document.querySelector('.js-reset').classList.remove('show-reset'); 
+              document.querySelector('.js-reset').textContent = 'Done';
+              }
           }
-
-
-          
-
-          document.querySelector('.js-reset').classList.remove('show-reset');
-
-          document.querySelector('.js-reset').textContent = 'Done!';
         });
 
         
