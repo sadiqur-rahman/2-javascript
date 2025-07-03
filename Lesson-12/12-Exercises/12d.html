@@ -16,18 +16,19 @@
   </style>
 </head>
 <body>
-  <button class="js-finish-button finish-button" onclick="runStart()">Start</button>
+  <button class="js-finish-button finish-button">Start</button>
 </body>
 <script>
   let isStart = false;
-  
-  function runStart() {
-    document.querySelector('.js-finish-button').textContent = 'Loading...';
 
-    setTimeout(() => {
-      if(!isStart) {
-      document.querySelector('.js-finish-button').textContent = 'Finished!';
-    }}, 1000);
-  }
+  document.querySelector('.js-finish-button')
+    .addEventListener('click', () => {
+      document.querySelector('.js-finish-button').textContent = 'Loading...';
+      setTimeout(() => {
+        if(!isStart) {
+          document.querySelector('.js-finish-button').textContent = 'Finished!';
+        }}, 1000)
+      }
+    );
 </script>
 </html>
