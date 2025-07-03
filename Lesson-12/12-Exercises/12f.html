@@ -16,20 +16,20 @@
   </style>
 </head>
 <body>
-  <button class="js-finish-button finish-button" onclick="addToCart()">Add to cart</button>
+  <button class="js-finish-button finish-button">Add to cart</button>
   <p class="js-added-msg added-msg"></p>
 </body>
 <script>
   let timeOutID;
 
-  function addToCart() {
-    clearTimeout(timeOutID);
-    msgElement = document.querySelector('.js-added-msg');
-    msgElement.textContent = 'Added';
+  document.querySelector('.js-finish-button')
+    .addEventListener('click', () => {
+      clearTimeout(timeOutID);
+      msgElement = document.querySelector('.js-added-msg');
+      msgElement.textContent = 'Added';
 
-    timeOutID = setTimeout(function() {
-      msgElement.textContent = '';
-    }, 2000);
-  }
+      timeOutID = setTimeout(function() {
+        msgElement.textContent = '';
+      }, 2000);});
 </script>
 </html>

@@ -6,8 +6,8 @@
   <title>12i / App</title>
 </head>
 <body>
-  <button onclick="addMessage()">Add</button>
-  <button onclick="removeMessage()">Remove</button>
+  <button class="js-add-button">Add</button>
+  <button class="js-remove-button">Remove</button>
   
   <script>
     let messages = 0;
@@ -21,23 +21,24 @@
       }
     }
 
-    function addMessage() {
-      clearInterval(getIntervalID);
-      messages++;
-      getIntervalID = setInterval(updateTitle, 1000);
-    }
+    document.querySelector('.js-add-button')
+      .addEventListener('click', () => {
+        clearInterval(getIntervalID);
+        messages++;
+        getIntervalID = setInterval(updateTitle, 1000);
+      });
 
-    function removeMessage() {
-      clearInterval(getIntervalID);
-      messages--;
-      if (messages <= 0) {
-        messages = 0;
-        document.title = '12i / App';
-      } else {
-        getIntervalID = setInterval(updateTitle, 1000); 
-      }
-    }
-
+    document.querySelector('.js-remove-button')
+      .addEventListener('click', () => {
+        clearInterval(getIntervalID);
+        messages--;
+        if (messages <= 0) {
+          messages = 0;
+          document.title = '12i / App';
+        } else {
+          getIntervalID = setInterval(updateTitle, 1000); 
+        }
+      });
   </script>
 </body>
 </html>
