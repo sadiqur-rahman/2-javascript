@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>12e</title>
   <style>
-    .finish-button, .added-msg{
+    .add-cart-button, .added-msg{
       font-size: 30px;
       padding-left: 20px;
       padding-right: 20px;
@@ -16,17 +16,18 @@
   </style>
 </head>
 <body>
-  <button class="js-finish-button finish-button" onclick="addToCart()">Add to cart</button>
+  <button class="js-add-cart-button add-cart-button">Add to cart</button>
   <p class="js-added-msg added-msg"></p>
 </body>
 <script>
-  function addToCart() {
-    msgElement = document.querySelector('.js-added-msg');
-    msgElement.textContent = 'Added';
+  document.querySelector('.js-add-cart-button')
+    .addEventListener('click', () => {
+      msgElement = document.querySelector('.js-added-msg');
+      msgElement.textContent = 'Added';
 
-    setTimeout(function() {
-      msgElement.textContent = '';
-    }, 2000);
-  }
+      setTimeout(function() {
+        msgElement.textContent = '';
+      }, 2000);
+    });
 </script>
 </html>
