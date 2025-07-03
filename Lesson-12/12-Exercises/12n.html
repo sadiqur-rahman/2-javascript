@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12n</title>
+</head>
+<body>
+  <script>
+    
+    const removeEgg1 = (foods) => {return foods.filter(value => value !== 'egg');};
+
+    const removeEgg = (foods) => {
+      // The issue with the code is that here using Array.prototype.filter() but not returning the filtered array from the removeEgg function. Also, the .filter() method does not mutate the original array — it returns a new array, which  must be return explicitly.
+      return foods.filter((value) => {
+        return value !== 'egg';
+      });
+    };
+
+    console.log(removeEgg(['egg', 'milk', 'bread', 'egg'])); // ['milk', 'bread']
+  </script>
+</body>
+</html>

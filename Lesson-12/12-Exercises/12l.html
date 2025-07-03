@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12l</title>
+</head>
+<body>
+  <script>
+    const countPositive = (array) => {
+      let count = 0;
+      array.forEach((value, index) => {
+        if(value > 0) {
+          count++;
+        };
+      });
+      return count;
+    };
+
+    console.log(countPositive([1, -2, 3, 4, -5])); // 3
+  </script>
+</body>
+</html>
