@@ -13,13 +13,16 @@
     let messages = 0;
     let getIntervalID;
 
-    function updateTitle() {
+    const updateTitle = () => {
       if (document.title === '12i / App') {
         document.title = `(${messages}) New messages`;
       } else {
         document.title = '12i / App';
       }
-    }
+    };
+
+    // setInterval(updateTitle(), 1000) → ❌ Calls the function immediately.
+    // setInterval(updateTitle, 1000) → ✅ Passes the function to be called every 1 second.
 
     document.querySelector('.js-add-button')
       .addEventListener('click', () => {

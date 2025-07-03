@@ -17,7 +17,7 @@
       .addEventListener('click', () => {
         clearInterval(getIntervalID);
         messages++;
-        getIntervalID = setInterval(function() {
+        getIntervalID = setInterval(() => {
           if (document.title === '12h / App') {
             document.title = `(${messages}) New messages`;
           } else {
@@ -35,7 +35,7 @@
           messages = 0;
           return;
         } else {
-          setInterval(function() {
+          setInterval(() => {
             if (document.title === '12h / App') {
               document.title = `(${messages}) New messages`;
             } else {
