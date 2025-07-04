@@ -1,8 +1,8 @@
 let score = JSON.parse(localStorage.getItem('score')) || {
-        wins: 0,
-        losses: 0,
-        ties: 0
-      };
+  wins: 0,
+  losses: 0,
+  ties: 0
+};
       
       let result;
 
@@ -39,8 +39,6 @@ let score = JSON.parse(localStorage.getItem('score')) || {
         }
       }
 
-      //document.querySelector('.js-rock-button')
-      //  .addEventListener('click', playGame('Rock')); // This will not work as function, we need to create one.
 
       // Move buttons
       document.querySelector('.js-rock-button')
@@ -80,10 +78,6 @@ let score = JSON.parse(localStorage.getItem('score')) || {
       document.body.addEventListener('keydown', (event) => {
         if(event.key === 'Backspace' || event.key === 'Delete') {
           if (score.wins > 0 || score.losses > 0 || score.ties > 0) {
-            /* Problem-2 : ❌ Problem 2: resetButtonPackage() only shows reset button, doesn't reset the score.
-            You're calling resetButtonPackage() when pressing Backspace/Delete, but that doesn't actually reset the score — it only shows the reset button and attaches its click handler.
-
-            So nothing happens unless you manually click the button after pressing Backspace.*/
             resetButton(); // ✅ call the real reset flow
             console.log('Pressing Backspace or Delete key.');
           }
@@ -174,6 +168,11 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
       if (score.wins > 0 || score.losses > 0 || score.ties > 0) {
         document.querySelector('.js-reset-wrapper').innerHTML = `<button class="reset-score-button js-reset">Reset Score</button>`;
         document.querySelector('.js-reset').classList.add('show-reset');
+
+         // Reset confirmation message showing when page loads with score
+        document.querySelector('.js-reset').addEventListener('click', () => {
+          resetButton();
+        });
       } else {
         document.querySelector('.js-reset').classList.remove('show-reset');
         document.querySelector('.js-reset-wrapper').innerHTML = '';
@@ -185,43 +184,74 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
           document.querySelector('.js-reset-wrapper').innerHTML = `<button class="reset-score-button js-reset">Reset Score</button>`;
           document.querySelector('.js-reset').classList.add('show-reset');
           document.querySelector('.js-confirm').innerHTML = '';
+          
           // Calling the reset button function
           document.querySelector('.js-reset')
             .addEventListener('click', () => {
             resetButton();
           });
       }
-      
+
       // Reset button function
       function resetButton() {
         document.querySelector('.js-confirm').innerHTML = `
-        Are you sure to reset the score?
-        <button class="js-confirm-reset yes-button">Yes</button>
-        <button class="js-cancel-reset no-button">No</button>`;
+          Are you sure to reset the score?
+          <button class="js-confirm-reset yes-button">Yes</button>
+          <button class="js-cancel-reset no-button">No</button>`;
 
         document.querySelector('.js-reset').classList.remove('show-reset');
 
-        document.querySelector('.js-confirm-reset')
-          .addEventListener('click', (event) => {
-            score.wins = 0;
-            score.losses = 0;
-            score.ties = 0;
-            localStorage.removeItem('score');
-            updateScoreElement();
-            console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
-            document.querySelector('.js-confirm').innerHTML = '';
-            document.querySelector('.js-reset-wrapper').innerHTML = '';
-            
-            document.querySelector('.js-moves').innerHTML = '';
-            document.querySelector('.js-result').innerHTML = '';
-          });
+        const confirmBtn = document.querySelector('.js-confirm-reset');
+        const cancelBtn = document.querySelector('.js-cancel-reset');
         
-        document.querySelector('.js-cancel-reset')
-          .addEventListener('click', (event) => {
+        if (confirmBtn) {
+          confirmBtn.addEventListener('click', (event) => {
+            resetScore();
+          });
+        }
+          
+        if (cancelBtn) {
+          cancelBtn.addEventListener('click', (event) => {
             document.querySelector('.js-confirm').innerHTML = '';
             document.querySelector('.js-reset').classList.add('show-reset');
           });
         }
+        
+        // Keydown for Yes
+        document.body.addEventListener('keydown', (event) => {
+          const confirmBox = document.querySelector('.js-confirm'); // Get the confirmation box element
+          const isConfirmVisible = confirmBox && confirmBox.innerHTML.trim() !== ''; // Check if the confirmation box is visible
+          if (isConfirmVisible && (event.key === 'Enter' || event.key === 'y' || event.key === 'Y')) {
+            resetScore();
+          }
+        });
+
+        // Keydown for No
+        document.body.addEventListener('keydown', (event) => {
+          const confirmBox = document.querySelector('.js-confirm');
+          const isConfirmVisible = confirmBox && confirmBox.innerHTML.trim() !== '';
+
+          if (isConfirmVisible && (event.key === 'Escape' || event.key === 'n' || event.key === 'N')) {
+            confirmBox.innerHTML = '';
+            document.querySelector('.js-reset').classList.add('show-reset');
+          }
+        });
+      }
+
+      
+      // Reset Score 
+      function resetScore() {
+        score.wins = 0;
+        score.losses = 0;
+        score.ties = 0;
+        localStorage.removeItem('score');
+        updateScoreElement();
+        console.log(`Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
+        document.querySelector('.js-confirm').innerHTML = '';
+        document.querySelector('.js-reset-wrapper').innerHTML = '';
+        document.querySelector('.js-moves').innerHTML = '';
+        document.querySelector('.js-result').innerHTML = '';
+      }
 
       //Updates score into HTML
       function updateScoreElement() {
