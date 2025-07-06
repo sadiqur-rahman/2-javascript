@@ -277,7 +277,7 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
         document.body.addEventListener('keydown', (event) => {
           const confirmBox = document.querySelector('.js-confirm'); // Get the confirmation box element
           const isConfirmVisible = confirmBox && confirmBox.innerHTML.trim() !== ''; // Check if the confirmation box is visible
-          if (isConfirmVisible && (event.key === 'Enter' || event.key === 'y' || event.key === 'Y')) {
+          if (isConfirmVisible && (event.key === 'y' || event.key === 'Y')) {
             resetScore();
           }
         });
@@ -287,7 +287,7 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
           const confirmBox = document.querySelector('.js-confirm');
           const isConfirmVisible = confirmBox && confirmBox.innerHTML.trim() !== '';
 
-          if (isConfirmVisible && (event.key === 'Escape' || event.key === 'n' || event.key === 'N')) {
+          if (isConfirmVisible && (event.key === 'n' || event.key === 'N')) {
             confirmBox.innerHTML = '';
             document.querySelector('.js-reset').classList.add('show-reset');
           }
