@@ -282,21 +282,6 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
             isResetConfirmVisible = false; // ✅ Flag OFF on cancel
           });
         }
-        /*
-        // Keydown for Yes
-        document.body.addEventListener('keydown', (event) => {
-          if (isResetConfirmVisible && (event.key === 'y' || event.key === 'Y' || event.key === 'Enter')) {
-            resetScore();
-          }
-
-          // Keydown for No
-          if (isResetConfirmVisible && (event.key === 'n' || event.key === 'N')) {
-            document.querySelector('.js-confirm').innerHTML = '';
-            document.querySelector('.js-reset').classList.add('show-reset');
-            isResetConfirmVisible = false;
-          }
-        });
-        */
       }
 
       // Global listener for confirmation keys (only works if visible)
