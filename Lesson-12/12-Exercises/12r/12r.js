@@ -16,6 +16,20 @@
           autoPlay();
         });
 
+      
+      // Stop Auto Play function
+      function stopAutoPlay() {
+        if (isAutoPlaying) { 
+          clearInterval(intervalID);
+          isAutoPlaying = false;
+          document.querySelector('.js-auto-play').textContent = `Auto Play`;
+          document.querySelector('.js-auto-play').classList.remove('show-stop');
+
+          resetButtonPackage();
+        }
+      }
+
+
       //Auto Play function
       let isAutoPlaying = false;
       let intervalID; 
@@ -34,17 +48,7 @@
           // If auto play is stopped, reset button will not be shown
           document.querySelector('.js-reset-wrapper').innerHTML = '';
         } else {
-          clearInterval(intervalID);
-          isAutoPlaying = false;
-          document.querySelector('.js-auto-play').textContent = `Auto Play`;
-          document.querySelector('.js-auto-play').classList.remove('show-stop');
-          
-          if (!isAutoPlaying) {
-            resetButtonPackage();
-          } else {
-            
-          }
-          
+          stopAutoPlay();
         }
       }
 
@@ -52,20 +56,41 @@
       // Move buttons
       document.querySelector('.js-rock-button')
         .addEventListener('click', () => {
-          playGame('Rock');
-          resetButtonPackage();
+          // If auto play is running, stop it before playing manually
+          if (isAutoPlaying) {
+            stopAutoPlay();
+            playGame('Rock');
+            resetButtonPackage();
+          } else {
+            playGame('Rock');
+            resetButtonPackage();
+          }
         });
 
       document.querySelector('.js-paper-button')
         .addEventListener('click', () => {
-          playGame('Paper');
-          resetButtonPackage();
+          // If auto play is running, stop it before playing manually
+          if (isAutoPlaying) {
+            stopAutoPlay();
+            playGame('Paper');
+            resetButtonPackage();
+          } else {
+            playGame('Paper');
+            resetButtonPackage();
+          }
         });
 
       document.querySelector('.js-scissors-button')
         .addEventListener('click', () => {
-          playGame('Scissors');
-          resetButtonPackage();
+          // If auto play is running, stop it before playing manually
+          if (isAutoPlaying) {
+            stopAutoPlay();
+            playGame('Scissors');
+            resetButtonPackage();
+          } else {
+            playGame('Scissors');
+            resetButtonPackage();
+          } 
         });
 
       // Adding event listeners to the body by the keydown event
@@ -96,7 +121,7 @@
       //Playing the Game
       function playGame(playerMove){
         const computerMove = pickComputerMove();
-
+          
         if(playerMove === 'Rock') {
           if(computerMove === 'Rock') {
             result = 'Tie.'
@@ -105,7 +130,6 @@
           } else {
             result = 'You win.'
           }
-
         } else if(playerMove === 'Paper'){
             if(computerMove === 'Rock') {
               result = 'You win.'
