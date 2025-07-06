@@ -1,9 +1,17 @@
+      /*
+      Problems:
+      1.  
+      */
+
       let score = JSON.parse(localStorage.getItem('score')) || {
         wins: 0,
         losses: 0,
         ties: 0
       };
       
+      // Global flag to track confirmation mode
+      let isResetConfirmVisible = false;
+
       let result;
 
       //Keeping the score showing even after the reload
@@ -45,9 +53,11 @@
           document.querySelector('.js-auto-play').textContent = `Stop`;
           document.querySelector('.js-auto-play').classList.add('show-stop');
 
-          // If auto play is stopped, reset button will not be shown
-          document.querySelector('.js-reset-wrapper').innerHTML = '';
+          // If auto play is on, reset button will not be shown
+          //document.querySelector('.js-reset-wrapper').innerHTML = '';
+          resetButtonPackage();
         } else {
+          // Key 'a' works as a toggle for auto play
           stopAutoPlay();
         }
       }
@@ -59,12 +69,9 @@
           // If auto play is running, stop it before playing manually
           if (isAutoPlaying) {
             stopAutoPlay();
-            playGame('Rock');
-            resetButtonPackage();
-          } else {
-            playGame('Rock');
-            resetButtonPackage();
           }
+          playGame('Rock');
+          resetButtonPackage();
         });
 
       document.querySelector('.js-paper-button')
@@ -72,12 +79,9 @@
           // If auto play is running, stop it before playing manually
           if (isAutoPlaying) {
             stopAutoPlay();
-            playGame('Paper');
-            resetButtonPackage();
-          } else {
-            playGame('Paper');
-            resetButtonPackage();
           }
+          playGame('Paper');
+          resetButtonPackage();
         });
 
       document.querySelector('.js-scissors-button')
@@ -85,12 +89,9 @@
           // If auto play is running, stop it before playing manually
           if (isAutoPlaying) {
             stopAutoPlay();
-            playGame('Scissors');
-            resetButtonPackage();
-          } else {
-            playGame('Scissors');
-            resetButtonPackage();
-          } 
+          }
+          playGame('Scissors');
+          resetButtonPackage();
         });
       
       //Playing with buttons
@@ -129,6 +130,10 @@
           } 
         } else if(event.key === 'a' || event.key === 'A') {
           autoPlay();
+        } else if(event.key === 'Escape') {
+          if (isAutoPlaying) {
+            stopAutoPlay();
+          }
         }
       });
 
@@ -250,12 +255,15 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
 
       // Reset button function
       function resetButton() {
+        stopAutoPlay(); // Stop auto play if it's running
         document.querySelector('.js-confirm').innerHTML = `
           Are you sure to reset the score?
           <button class="js-confirm-reset yes-button">Yes</button>
           <button class="js-cancel-reset no-button">No</button>`;
 
         document.querySelector('.js-reset').classList.remove('show-reset');
+
+        isResetConfirmVisible = true; // ✅ Flag ON when confirmation is visible
 
         const confirmBtn = document.querySelector('.js-confirm-reset');
         const cancelBtn = document.querySelector('.js-cancel-reset');
@@ -270,29 +278,43 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
           cancelBtn.addEventListener('click', (event) => {
             document.querySelector('.js-confirm').innerHTML = '';
             document.querySelector('.js-reset').classList.add('show-reset');
+
+            isResetConfirmVisible = false; // ✅ Flag OFF on cancel
           });
         }
-        
+        /*
         // Keydown for Yes
         document.body.addEventListener('keydown', (event) => {
-          const confirmBox = document.querySelector('.js-confirm'); // Get the confirmation box element
-          const isConfirmVisible = confirmBox && confirmBox.innerHTML.trim() !== ''; // Check if the confirmation box is visible
-          if (isConfirmVisible && (event.key === 'Enter' || event.key === 'y' || event.key === 'Y')) {
+          if (isResetConfirmVisible && (event.key === 'y' || event.key === 'Y' || event.key === 'Enter')) {
             resetScore();
           }
-        });
 
-        // Keydown for No
-        document.body.addEventListener('keydown', (event) => {
-          const confirmBox = document.querySelector('.js-confirm');
-          const isConfirmVisible = confirmBox && confirmBox.innerHTML.trim() !== '';
-
-          if (isConfirmVisible && (event.key === 'n' || event.key === 'N')) {
-            confirmBox.innerHTML = '';
+          // Keydown for No
+          if (isResetConfirmVisible && (event.key === 'n' || event.key === 'N')) {
+            document.querySelector('.js-confirm').innerHTML = '';
             document.querySelector('.js-reset').classList.add('show-reset');
+            isResetConfirmVisible = false;
           }
         });
+        */
       }
+
+      // Global listener for confirmation keys (only works if visible)
+      // Keydown for Yes
+      document.body.addEventListener('keydown', (event) => {
+        if (!isResetConfirmVisible) return;
+
+        if (event.key === 'y' || event.key === 'Y' || event.key === 'Enter') {
+          resetScore();
+        }
+
+        // Keydown for No
+        if (event.key === 'n' || event.key === 'N') {
+          document.querySelector('.js-confirm').innerHTML = '';
+          document.querySelector('.js-reset').classList.add('show-reset');
+          isResetConfirmVisible = false;
+        }
+      });
 
       
       // Reset Score 
@@ -307,6 +329,8 @@ Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);
         document.querySelector('.js-reset-wrapper').innerHTML = '';
         document.querySelector('.js-moves').innerHTML = '';
         document.querySelector('.js-result').innerHTML = '';
+
+        isResetConfirmVisible = false; // ✅ Flag OFF
       }
 
       //Updates score into HTML
