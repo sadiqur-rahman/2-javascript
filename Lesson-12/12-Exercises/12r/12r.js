@@ -1,8 +1,8 @@
-let score = JSON.parse(localStorage.getItem('score')) || {
-  wins: 0,
-  losses: 0,
-  ties: 0
-};
+      let score = JSON.parse(localStorage.getItem('score')) || {
+        wins: 0,
+        losses: 0,
+        ties: 0
+      };
       
       let result;
 
@@ -27,15 +27,24 @@ let score = JSON.parse(localStorage.getItem('score')) || {
           playGame(playerMove);
           }, 1000);
           isAutoPlaying = true;
+
           document.querySelector('.js-auto-play').textContent = `Stop`;
-          document.querySelector('.js-reset').textContent = 'Reset Score';
           document.querySelector('.js-auto-play').classList.add('show-stop');
-          document.querySelector('.js-reset').classList.add('show-reset');
+
+          // If auto play is stopped, reset button will not be shown
+          document.querySelector('.js-reset-wrapper').innerHTML = '';
         } else {
           clearInterval(intervalID);
           isAutoPlaying = false;
           document.querySelector('.js-auto-play').textContent = `Auto Play`;
-          document.querySelector('.js-auto-play').classList.remove('show-stop'); 
+          document.querySelector('.js-auto-play').classList.remove('show-stop');
+          
+          if (!isAutoPlaying) {
+            resetButtonPackage();
+          } else {
+            
+          }
+          
         }
       }
 
