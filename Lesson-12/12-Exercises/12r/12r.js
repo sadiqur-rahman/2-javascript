@@ -92,20 +92,43 @@
             resetButtonPackage();
           } 
         });
-
-      // Adding event listeners to the body by the keydown event
-      // Special object returned by the event is called 'event'
-      // We can use event.key to get the key pressed by the user
+      
+      //Playing with buttons
+      /*
+      Adding event listeners to the body by the keydown event
+      Special object returned by the event is called 'event'
+      /We can use event.key to get the key pressed by the user
+      */
       document.body.addEventListener('keydown', (event) => {
         if(event.key === 'r' || event.key === 'R') {
-          playGame('Rock');
-          resetButtonPackage();
+          if (isAutoPlaying) {
+            stopAutoPlay();
+            playGame('Rock');
+            resetButtonPackage();
+          } else {
+            playGame('Rock');
+            resetButtonPackage();
+          }
         } else if(event.key === 'p' || event.key === 'P') {
-          playGame('Paper');
-          resetButtonPackage();
+          if (isAutoPlaying) {
+            stopAutoPlay();
+            playGame('Paper');
+            resetButtonPackage();
+          } else {
+            playGame('Paper');
+            resetButtonPackage();
+          }
         } else if(event.key === 's' || event.key === 'S') {
-          playGame('Scissors');
-          resetButtonPackage();
+          if (isAutoPlaying) {
+            stopAutoPlay();
+            playGame('Scissors');
+            resetButtonPackage();
+          } else {
+            playGame('Scissors');
+            resetButtonPackage();
+          } 
+        } else if(event.key === 'a' || event.key === 'A') {
+          autoPlay();
         }
       });
 
