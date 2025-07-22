@@ -39,7 +39,8 @@ products.forEach((product) => {
         <img src="images/icons/checkmark.png">
         Added
       </div>
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart" 
+      data-product-name="${product.name}">
         Add to Cart
       </button>
     </div>
@@ -48,3 +49,22 @@ products.forEach((product) => {
 
 // now put in on the page using DOM.
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+// use forEach() to loop through the buttons
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
+      const productName = button.dataset.productName;
+      cart.push({
+        productName: productName,
+        quantity: 1
+      });
+      console.log(cart);
+    })
+  })
+
+  
+
+
+  
