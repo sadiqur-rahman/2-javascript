@@ -56,10 +56,29 @@ document.querySelectorAll('.js-add-to-cart')
     button.addEventListener('click', () => {
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
       const productName = button.dataset.productName;
-      cart.push({
-        productName: productName,
-        quantity: 1
+
+      // increasing quantity for multiple similar items saving and add to cart for new item on following algorithm
+      
+      // step 1: check if the product is alreadyin the cart before adding/pushing the product to the cart array.
+      let matchingItem;
+      cart.forEach((item) => {
+        if (productName === item.productName) {
+          matchingItem = item;
+        }
       });
+
+      // step 2: if it's in the cart, increase the quantity
+      if (matchingItem) {
+        matchingItem.quantity++;
+      } else {
+        // step 3: push the product into the array.
+        cart.push({
+          productName: productName,
+          quantity: 1
+        });
+      }
+
+      
       console.log(cart);
     })
   })
