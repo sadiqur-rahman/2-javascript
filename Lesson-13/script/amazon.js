@@ -21,7 +21,7 @@ products.forEach((product) => {
         $${(product.priceCents / 100).toFixed(2)}
       </div>
       <div class="product-quantity-container">
-        <select>
+        <select class="js-product-quantity">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -55,11 +55,20 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
-      const productId = button.dataset.productId;
+      const productId = button.dataset.productId; // changed
 
-      // Increasing Quantity
+      // making the <select> inside .product-quantity-container actually usable in JS
+      // finding the closest product container
+      const productContainer = button.closest('.product-container');
+       // Find the <select> inside it
+      const quantitySelect = productContainer.querySelector('.js-product-quantity');
+      const selectedQuantity = Number(quantitySelect.value);
+      console.log('Selected Qnt:', selectedQuantity);
+
+      // for Increasing Quantity
       // step 1: check if the product is alreadyin the cart before adding/pushing the product to the cart array.
       let matchingItem;
+
       cart.forEach((item) => {
         if (productId === item.productId) {
           matchingItem = item;
@@ -68,12 +77,12 @@ document.querySelectorAll('.js-add-to-cart')
 
       // step 2: if it's in the cart, increase the quantity
       if (matchingItem) {
-        matchingItem.quantity++;
+        matchingItem.quantity += selectedQuantity;
       } else {
         // step 3: push the product into the array.
         cart.push({
           productId: productId,
-          quantity: 1
+          quantity: selectedQuantity
         });
       }
       
@@ -84,10 +93,10 @@ document.querySelectorAll('.js-add-to-cart')
         cartQuantity += item.quantity;
       })
       
-      console.log(cartQuantity);
-      console.log(cart);
+      console.log('Cart Qnt:', cartQuantity);
+      console.log('Cart:', cart);
 
-      document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
     })
   })
 
