@@ -21,7 +21,7 @@ products.forEach((product) => {
         $${(product.priceCents / 100).toFixed(2)}
       </div>
       <div class="product-quantity-container">
-        <select class="js-product-quantity">
+        <select class="js-product-quantity js-quantity-selector-${product.id}">
           <option selected value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -55,8 +55,14 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
-      const productId = button.dataset.productId; // changed
+      const productId = button.dataset.productId;
 
+      // start
+      const quantitySelect = document.querySelector(`.js-quantity-selector-${productId}`);
+      const selectedQuantity = Number(quantitySelect.value);
+      console.log('Selected Qnt:', selectedQuantity);
+      // end
+/*
       // making the <select> inside .product-quantity-container actually usable in JS
       // finding the closest product container
       const productContainer = button.closest('.product-container');
@@ -64,7 +70,7 @@ document.querySelectorAll('.js-add-to-cart')
       const quantitySelect = productContainer.querySelector('.js-product-quantity');
       const selectedQuantity = Number(quantitySelect.value);
       console.log('Selected Qnt:', selectedQuantity);
-
+*/
       // for Increasing Quantity
       // step 1: check if the product is alreadyin the cart before adding/pushing the product to the cart array.
       let matchingItem;
