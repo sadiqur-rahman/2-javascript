@@ -40,7 +40,7 @@ products.forEach((product) => {
         Added
       </div>
       <button class="add-to-cart-button button-primary js-add-to-cart" 
-      data-product-name="${product.name}">
+      data-product-id="${product.id}"> 
         Add to Cart
       </button>
     </div>
@@ -55,14 +55,13 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
-      const productName = button.dataset.productName;
+      const productId = button.dataset.productId;
 
-      // increasing quantity for multiple similar items saving and add to cart for new item on following algorithm
-      
+      // Increasing Quantity
       // step 1: check if the product is alreadyin the cart before adding/pushing the product to the cart array.
       let matchingItem;
       cart.forEach((item) => {
-        if (productName === item.productName) {
+        if (productId === item.productId) {
           matchingItem = item;
         }
       });
@@ -73,12 +72,10 @@ document.querySelectorAll('.js-add-to-cart')
       } else {
         // step 3: push the product into the array.
         cart.push({
-          productName: productName,
+          productId: productId,
           quantity: 1
         });
       }
-
-      
       console.log(cart);
     })
   })
