@@ -1,5 +1,6 @@
-import { cart } from "../data/cart.js";
-import { products } from "../data/products.js";
+// import * brings everything
+import {cart, addToCart} from "../data/cart.js";
+import {products} from "../data/products.js";
 
 let productsHTML = ''; // all HTML into this var
 
@@ -53,6 +54,20 @@ products.forEach((product) => {
 // now put in on the page using DOM.
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+// updating cart quantity
+function updateCartQuantity() {
+  // finding total quantity
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  })
+  
+  console.log('Cart Qnt:', cartQuantity);
+  console.log('Cart:', cart)
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+}
+
 // use forEach() to loop through the buttons
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
@@ -63,39 +78,10 @@ document.querySelectorAll('.js-add-to-cart')
       const quantity = Number(quantitySelect.value);
       console.log('Selected Qnt:', quantity);
 
-      // for Increasing Quantity
-      let matchingItem;
-
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item;
-        }
-      });
-      // step 2: if it's in the cart, increase the quantity
-      if (matchingItem) {
-        matchingItem.quantity += quantity;
-      } else {
-        // step 3: push the product into the array.
-        cart.push({
-          productId,
-          quantity
-        });
-      }
-      
-      // finding total quantity
-      let cartQuantity = 0;
-
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      })
-      
-      console.log('Cart Qnt:', cartQuantity);
-      console.log('Cart:', cart);
-
-      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+      addToCart(productId, quantity);
+      updateCartQuantity();
 
       // timeout handeling section
-
       // getting productID from added cart pressed item.
       const addedProduct = document.querySelector(`.js-added-to-cart-${productId}`);
 
