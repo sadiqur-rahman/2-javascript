@@ -35,7 +35,7 @@ products.forEach((product) => {
         </select>
       </div>
       <div class="product-spacer"></div>
-      <div class="added-to-cart">
+      <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -50,6 +50,10 @@ products.forEach((product) => {
 // now put in on the page using DOM.
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+
+// timeoutID needs to declare out of the click handeler.
+let timeoutID;
+
 // use forEach() to loop through the buttons
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
@@ -57,25 +61,11 @@ document.querySelectorAll('.js-add-to-cart')
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
       // const productId = button.dataset.productId;
       const {productId} = button.dataset; // destructuring
-
-      // start
       const quantitySelect = document.querySelector(`.js-quantity-selector-${productId}`);
       const quantity = Number(quantitySelect.value);
       console.log('Selected Qnt:', quantity);
-      // end
-
-/*
-      // making the <select> inside .product-quantity-container actually usable in JS
-      // finding the closest product container
-      const productContainer = button.closest('.product-container');
-       // Find the <select> inside it
-      const quantitySelect = productContainer.querySelector('.js-product-quantity');
-      const selectedQuantity = Number(quantitySelect.value);
-      console.log('Selected Qnt:', selectedQuantity);
-*/
 
       // for Increasing Quantity
-      // step 1: check if the product is alreadyin the cart before adding/pushing the product to the cart array.
       let matchingItem;
 
       cart.forEach((item) => {
@@ -83,7 +73,6 @@ document.querySelectorAll('.js-add-to-cart')
           matchingItem = item;
         }
       });
-
       // step 2: if it's in the cart, increase the quantity
       if (matchingItem) {
         matchingItem.quantity += quantity;
@@ -106,7 +95,19 @@ document.querySelectorAll('.js-add-to-cart')
       console.log('Cart:', cart);
 
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+      // getting productID from added cart pressed item.
+      const addedProduct = document.querySelector(`.js-added-to-cart-${productId}`);
+      addedProduct.classList.add('js-added-cart-visible');
+      console.log('Added ProductID:', addedProduct);
+
+      // added msg timeout
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => {
+        addedProduct.classList.remove('js-added-cart-visible');
+      }, 2000);
     })
+      
   })
 
   
