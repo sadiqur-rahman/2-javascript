@@ -50,9 +50,10 @@ products.forEach((product) => {
 // now put in on the page using DOM.
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-
-// timeoutID needs to declare out of the click handeler.
-let timeoutID;
+// step 2
+// create an Object to put all the timeout IDs.
+// property as productID: timeoutID
+const addedMessageTimeouts = {};
 
 // use forEach() to loop through the buttons
 document.querySelectorAll('.js-add-to-cart')
@@ -96,18 +97,32 @@ document.querySelectorAll('.js-add-to-cart')
 
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
+      // timeout handeling section
       // getting productID from added cart pressed item.
       const addedProduct = document.querySelector(`.js-added-to-cart-${productId}`);
-      addedProduct.classList.add('js-added-cart-visible');
+
+      addedProduct.classList.add('js-added-to-cart-visible');
       console.log('Added ProductID:', addedProduct);
 
-      // added msg timeout
-      clearTimeout(timeoutID);
-      timeoutID = setTimeout(() => {
-        addedProduct.classList.remove('js-added-cart-visible');
-      }, 2000);
-    })
+      // step 4
+      // Check if there's a previous timeout for this product. 
+      // If there is, we should stop it. Thus bring it from the object
+      const previousTimeOutId = addedMessageTimeouts[productId];
+
+      if(previousTimeOutId) {
+        clearTimeout(previousTimeOutId);
+      }
       
+      // setp 1
+      const timeOutId = setTimeout(() => {
+        addedProduct.classList.remove('js-added-to-cart-visible');
+      }, 2000);
+
+      // step 3
+      // Save the timeoutId for this product into the object
+      // so we can stop it later if we need to.
+      addedMessageTimeouts[productId] = timeOutId;
+    })
   })
 
   
