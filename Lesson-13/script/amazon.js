@@ -1,18 +1,18 @@
-let productsHTML = ''; // all HTML into this var
+let productsHTML = '';
 
+// Generate HTML for all products
 products.forEach((product) => {
   productsHTML += `
     <div class="product-container">
       <div class="product-image-container">
-        <img class="product-image"
-          src="${product.image}">
+        <img class="product-image" src="${product.image}">
       </div>
       <div class="product-name limit-text-to-2-lines">
         ${product.name}
       </div>
       <div class="product-rating-container">
         <img class="product-rating-stars"
-          src="images/ratings/rating-${product.rating.stars * 10}.png">
+             src="images/ratings/rating-${product.rating.stars * 10}.png">
         <div class="product-rating-count link-primary">
           ${product.rating.count}
         </div>
@@ -22,110 +22,57 @@ products.forEach((product) => {
       </div>
       <div class="product-quantity-container">
         <select class="js-product-quantity js-quantity-selector-${product.id}">
-          <option selected value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+          ${[...Array(10)].map((_, i) => 
+            `<option value="${i+1}" ${i===0?'selected':''}>${i+1}</option>`
+          ).join('')}
         </select>
       </div>
       <div class="product-spacer"></div>
       <div class="added-to-cart js-added-to-cart-${product.id}">
-        <img src="images/icons/checkmark.png">
-        Added
+        <img src="images/icons/checkmark.png"> Added
       </div>
-      <button class="add-to-cart-button button-primary js-add-to-cart" 
-      data-product-id="${product.id}"> 
+      <button class="add-to-cart-button button-primary js-add-to-cart"
+              data-product-id="${product.id}">
         Add to Cart
       </button>
     </div>
-  `; // copy all html for 1 product
+  `;
 });
 
-// now put in on the page using DOM.
+// Render products to page
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-// step 2
-// create an Object to put all the timeout IDs.
-// property as productID: timeoutID
-const addedMessageTimeouts = {};
+// Add click handlers to all "Add to Cart" buttons
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+  button.addEventListener('click', () => {
+    const { productId } = button.dataset;
 
-// use forEach() to loop through the buttons
-document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-      // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
-      // const productId = button.dataset.productId;
-      const {productId} = button.dataset; // destructuring
-      const quantitySelect = document.querySelector(`.js-quantity-selector-${productId}`);
-      const quantity = Number(quantitySelect.value);
-      console.log('Selected Qnt:', quantity);
+    // Get selected quantity
+    const quantitySelect = document.querySelector(`.js-quantity-selector-${productId}`);
+    const quantity = Number(quantitySelect.value);
 
-      // for Increasing Quantity
-      let matchingItem;
+    // Update cart
+    let matchingItem = cart.find(item => item.productId === productId);
+    if (matchingItem) {
+      matchingItem.quantity += quantity;
+    } else {
+      cart.push({ productId, quantity });
+    }
 
-      cart.forEach((item) => {
-        if (productId === item.productId) {
-          matchingItem = item;
-        }
-      });
-      // step 2: if it's in the cart, increase the quantity
-      if (matchingItem) {
-        matchingItem.quantity += quantity;
-      } else {
-        // step 3: push the product into the array.
-        cart.push({
-          productId,
-          quantity
-        });
-      }
-      
-      // finding total quantity
-      let cartQuantity = 0;
+    // Update cart quantity display
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.querySelector('.js-cart-quantity').innerHTML = totalQuantity;
 
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      })
-      
-      console.log('Cart Qnt:', cartQuantity);
-      console.log('Cart:', cart);
+    // Show "Added" badge
+    const addedProduct = document.querySelector(`.js-added-to-cart-${productId}`);
+    addedProduct.classList.add('js-added-to-cart-visible');
 
-      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-
-      // timeout handeling section
-      // getting productID from added cart pressed item.
-      const addedProduct = document.querySelector(`.js-added-to-cart-${productId}`);
-
-      addedProduct.classList.add('js-added-to-cart-visible');
-      console.log('Added ProductID:', addedProduct);
-
-      // step 4
-      // Check if there's a previous timeout for this product. 
-      // If there is, we should stop it. Thus bring it from the object
-      const previousTimeOutId = addedMessageTimeouts[productId];
-
-      if(previousTimeOutId) {
-        clearTimeout(previousTimeOutId);
-      }
-      
-      // setp 1
-      const timeOutId = setTimeout(() => {
-        addedProduct.classList.remove('js-added-to-cart-visible');
-      }, 2000);
-
-      // step 3
-      // Save the timeoutId for this product into the object
-      // so we can stop it later if we need to.
-      addedMessageTimeouts[productId] = timeOutId;
-    })
-  })
-
-  
-
-
-  
+    // Handle timer: cancel old, start new
+    if (addedProduct.timeoutId) {
+      clearTimeout(addedProduct.timeoutId);
+    }
+    addedProduct.timeoutId = setTimeout(() => {
+      addedProduct.classList.remove('js-added-to-cart-visible');
+    }, 2000);
+  });
+});
