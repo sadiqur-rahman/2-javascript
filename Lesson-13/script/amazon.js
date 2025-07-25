@@ -55,13 +55,15 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
-      const productId = button.dataset.productId;
+      // const productId = button.dataset.productId;
+      const {productId} = button.dataset; // destructuring
 
       // start
       const quantitySelect = document.querySelector(`.js-quantity-selector-${productId}`);
-      const selectedQuantity = Number(quantitySelect.value);
-      console.log('Selected Qnt:', selectedQuantity);
+      const quantity = Number(quantitySelect.value);
+      console.log('Selected Qnt:', quantity);
       // end
+
 /*
       // making the <select> inside .product-quantity-container actually usable in JS
       // finding the closest product container
@@ -71,6 +73,7 @@ document.querySelectorAll('.js-add-to-cart')
       const selectedQuantity = Number(quantitySelect.value);
       console.log('Selected Qnt:', selectedQuantity);
 */
+
       // for Increasing Quantity
       // step 1: check if the product is alreadyin the cart before adding/pushing the product to the cart array.
       let matchingItem;
@@ -83,12 +86,12 @@ document.querySelectorAll('.js-add-to-cart')
 
       // step 2: if it's in the cart, increase the quantity
       if (matchingItem) {
-        matchingItem.quantity += selectedQuantity;
+        matchingItem.quantity += quantity;
       } else {
         // step 3: push the product into the array.
         cart.push({
-          productId: productId,
-          quantity: selectedQuantity
+          productId,
+          quantity
         });
       }
       

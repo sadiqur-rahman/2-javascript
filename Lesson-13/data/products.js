@@ -656,5 +656,37 @@ const products = [
       "apparel",
       "mens"
     ]
+  }, 
+  {
+    id: "id1",
+    image: "images/products/backpack.jpg",
+    name: "Backpack for Travel / School / College",
+    rating: {
+      stars: 5,
+      count: 37090
+    },
+    priceCents: 2100,
+    keywords: [
+      "bagpack",
+      "travelbag",
+      "schoolbag",
+      "bag"
+    ]
+  },
+  {
+    id: "id2",
+    image: "images/products/umbrella.jpg",
+    name: "Quick Umbrella - Reguler Size",
+    rating: {
+      stars: 5,
+      count: 1230
+    },
+    priceCents: 1100,
+    keywords: [
+      "smallumbrella",
+      "smartumbrella",
+      "rainumbrella",
+      "sunumbrella"
+    ]
   }
 ];
