@@ -1,6 +1,11 @@
+// Main idea of JavaScript is: 
+// 1. Save the data 
+// 2. Generate the HTML 
+// 3. Make it interactive
+
 // import * brings everything
 import {cart, addToCart} from "../data/cart.js";
-import {products} from "../data/products.js";
+import {products} from "../data/products.js"; 
 
 let productsHTML = ''; // all HTML into this var
 
@@ -55,26 +60,30 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 // updating cart quantity
-function updateCartQuantity() {
+export let cartQuantity = 0;
+export function updateCartQuantity() {
   // finding total quantity
-  let cartQuantity = 0;
-
+  cartQuantity = 0; // reset first
   cart.forEach((cartItem) => {
     cartQuantity += cartItem.quantity;
   })
   
   console.log('Cart Qnt:', cartQuantity);
   console.log('Cart:', cart)
+
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+  return cartQuantity;
 }
 
-// use forEach() to loop through the buttons
+// use forEach() to loop through the ADD to CART buttons
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener('click', () => {
       // now create a cart Array. how do we know which product we are adding? ---> Data Attribute (start: data-)
       const {productId} = button.dataset; // destructuring
       const quantitySelect = document.querySelector(`.js-quantity-selector-${productId}`);
+      // declared quantity
       const quantity = Number(quantitySelect.value);
       console.log('Selected Qnt:', quantity);
 
