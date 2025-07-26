@@ -28,7 +28,7 @@ cart.forEach((cartItem) => {
   
   // Generating the HTML for the matching product.
   cartSummaryHTML += `
-  <div class="cart-item-container">
+  <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
     <div class="delivery-date">
       Delivery date: Tuesday, June 21
     </div>
@@ -109,9 +109,11 @@ cart.forEach((cartItem) => {
 document.querySelector('.js-order-summary').innerHTML=cartSummaryHTML;
 
 // deleting product from delete button 
-// 1. when we click delete how do we know which product to delete
-// 2. remove the product from the cart
-// 3. update the html
+// 1. <checkout.js> when we click delete how do we know which product to delete
+// 2. <cart.js> remove the product from the cart
+// 3. <checkout.js> give a class to cart item container: js-cart-item-container-matchingProductId
+// 4. <checkout.js> select the element and put it in: container
+// 5. <checkout.js> remove the class from the container/page
 document.querySelectorAll('.js-delete-link')
   .forEach((link) => {
     link.addEventListener('click', () => {
@@ -120,6 +122,12 @@ document.querySelectorAll('.js-delete-link')
       // put that into a deleteProductId variable
       const deleteProductId = link.dataset.productId;
       removeFromCart(deleteProductId);
-      console.log(cart);
+
+      //step 4
+      const container = document.querySelector(
+        `.js-cart-item-container-${deleteProductId}`
+      );
+      //step 5
+      container.remove();
     })
   });
