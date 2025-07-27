@@ -1,15 +1,6 @@
-
-import {cart, removeFromCart} from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-
-// import {updateCartQuantity } from "./amazon.js";
-
-// const totalCartQuantity = updateCartQuantity(); // get returned total
-// console.log(totalCartQuantity);
-// document.querySelector('.return-to-home-link').innerHTML = `${totalCartQuantity} items`;
-
-
 
 // Deduplicating / Normalizing data
 // Getting the matching product's detail in the cart
@@ -131,3 +122,16 @@ document.querySelectorAll('.js-delete-link')
       container.remove();
     })
   });
+
+  let cartQuantity = 0;
+  function updateCartQuantity() {
+  // finding total quantity
+  cartQuantity = 0; // reset first
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  })
+  return cartQuantity;
+}
+
+  document.querySelector('.js-return-to-home-link').innerHTML = `${updateCartQuantity()} items`;
+  

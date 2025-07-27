@@ -4,8 +4,8 @@
 // 3. Make it interactive
 
 // import * brings everything
-import {cart, addToCart} from "../data/cart.js";
-import {products} from "../data/products.js"; 
+import { cart, addToCart } from "../data/cart.js";
+import { products } from "../data/products.js"; 
 import { formatCurrency } from "./utils/money.js";
 
 let productsHTML = ''; // all HTML into this var
@@ -61,7 +61,7 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 // updating cart quantity
-export let cartQuantity = 0;
+let cartQuantity = 0;
 export function updateCartQuantity() {
   // finding total quantity
   cartQuantity = 0; // reset first
