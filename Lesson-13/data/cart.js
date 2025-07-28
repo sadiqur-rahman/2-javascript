@@ -1,4 +1,4 @@
-export let cart = JSON.parse(localStorage.getItem('cart'));
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 // when cart is empty lcaolstorage gives null, so we use 3 default values here.
 
 
