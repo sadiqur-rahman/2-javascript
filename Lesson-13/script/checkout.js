@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart, saveToStorage } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { cartQuantity, calculateCartQuantity } from "../data/cart.js";
@@ -38,7 +38,7 @@ cart.forEach((cartItem) => {
         </div>
         <div class="product-quantity">
           <span>
-            Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+            Quantity: <span class="quantity-label js-cart-quantity-label">${cartItem.quantity}</span>
           </span>
           <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
             Update
@@ -118,7 +118,6 @@ document.querySelectorAll('.js-delete-link')
       // put that into a deleteProductId as id variable
       const id = link.dataset.productId;
       removeFromCart(id);
-      console.log(id);
 
       //step 4
       const container = document.querySelector(
@@ -141,27 +140,50 @@ function updateCartQuantity() {
 // Show cart items on page load.
 updateCartQuantity();
 
-// Update: Changing products quantity
+// Update Button: Changing products quantity
 document.querySelectorAll('.js-update-link')
   .forEach((link) => {
     link.addEventListener('click', () => {
       const id = link.dataset.productId;
-      console.log(id);
 
       const container = document.querySelector(`.js-cart-item-container-${id}`);
         container.classList.add('is-editing-quantity');
     });
   });
 
-// Save: Saving the changed quantity
+// Save Button: Saving the changed quantity
 document.querySelectorAll('.js-link-primary')
   .forEach((link) => {
     link.addEventListener('click', () => {
       const id = link.dataset.productId;
-      console.log(id);
 
       const container = document.querySelector(`.js-cart-item-container-${id}`);
-        container.classList.remove('is-editing-quantity');
+      container.classList.remove('is-editing-quantity');
+
+      // Getting Updated Vlaue
+      // scope the selector inside the container so it always gets the correct input: container.querySelector('.quantity-input').value);
+      const updatedQuantity = Number(container.querySelector('.quantity-input').value);
+
+      // Find the product and update its quantity
+      let product;
+
+      cart.forEach(item => {
+        if (item.productId === id) {
+          product = item;
+        }
+      });
+
+      // 2. update the cart quantity into cart array on cart.js 
+      if(product) {
+        product.quantity = updatedQuantity;
+      }
+
+      // 2.1 Update checkout items display
+      updateCartQuantity();
+      // save to lcoal cart
+      saveToStorage();
+
+      // 2.2 Update quantity label
+      container.querySelector('.js-cart-quantity-label').innerText = product.quantity;
     });
   });
-  

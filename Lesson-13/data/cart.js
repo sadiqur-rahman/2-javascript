@@ -2,7 +2,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 // when cart is empty lcaolstorage gives null, so we use 3 default values here.
 
 
-function saveToStorage() {
+export function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
@@ -57,4 +57,4 @@ export function calculateCartQuantity() {
     newCartQuantity += cartItem.quantity;
   });
   cartQuantity = newCartQuantity;
-}
+};
