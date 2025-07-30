@@ -165,51 +165,46 @@ document.querySelectorAll('.js-update-link')
 // Save Button: Saving the changed quantity
 document.querySelectorAll('.js-link-primary')
   .forEach((link) => {
-    link.addEventListener('click', () => {
-      const id = link.dataset.productId;
-      const container = document.querySelector(`.js-cart-item-container-${id}`);
-
-      container.classList.remove('is-editing-quantity');
-
-      // save the previous quantity
-      let previousQuantity;
-      cart.forEach(cartItem => {
-        if (cartItem.productId === id) {
-        previousQuantity = cartItem.quantity;
-        }
-      });
-
-      // Getting Updated quantity
-      // scope the selector inside the container so it always gets the correct input: container.querySelector('.quantity-input').value);
-      const input = container.querySelector('.quantity-input');
-      let updatedQuantity = Number(input.value);
-      // wrong input handeling
-      if(updatedQuantity <= 0) {
-        updatedQuantity = previousQuantity;
-        alert('Invalid quantity. Must be at least 1.');
-      }
-
-      // after the error hadneling is done, call updateQuantity()
-      updateQuantity(id, updatedQuantity);
-      updateCartQuantity();
-      saveToStorage();
-      container.querySelector('.js-cart-quantity-label').innerText = updatedQuantity;
-    });
-
-    // This part is outside of the loop because you want to attach those keydown and paste listeners once, when the page loads — not every time the user clicks "Save". 
-    // Add negative typing & paste blocking to each input
     const id = link.dataset.productId;
     const container = document.querySelector(`.js-cart-item-container-${id}`);
     const input = container.querySelector('.quantity-input');
 
-    // Block typing "-"
+    // save logic function
+    function saveQuantity() {
+      container.classList.remove('is-editing-quantity');
+
+      // Get previous quantity
+      let previousQuantity = 1; // default fallback
+      cart.forEach(cartItem => {
+        if (cartItem.productId === id) {
+          previousQuantity = cartItem.quantity;
+        }
+      });
+
+      let updatedQuantity = Number(input.value);
+      if (isNaN(updatedQuantity) || updatedQuantity <= 0) {
+        updatedQuantity = previousQuantity;
+        input.value = updatedQuantity; // visually correct it
+        alert('Invalid quantity. Must be at least 1.');
+      }
+
+      updateQuantity(id, updatedQuantity);
+      updateCartQuantity();
+      saveToStorage();
+      container.querySelector('.js-cart-quantity-label').innerText = updatedQuantity;
+    }
+
+    // Part 1: save on click, call the saveQuantity()
+    link.addEventListener('click', saveQuantity);
+
+    // Part 2: prevent typing "-"
     input.addEventListener('keydown', (event) => {
       if (event.key === '-') {
         event.preventDefault();
       }
     });
 
-    // Block pasting negative or zero
+    // Part 3: prevent pasting invalid
     input.addEventListener('paste', (event) => {
       const pasted = Number(event.clipboardData.getData('text'));
       if (isNaN(pasted) || pasted <= 0) {
@@ -217,4 +212,32 @@ document.querySelectorAll('.js-link-primary')
         alert('Invalid quantity pasted. Must be at least 1.');
       }
     });
+
+    // Part 4: save on pressing Enter
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        saveQuantity();
+      }
+    });
+
+    // Part 5: cancel updating pressing Esc
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+
+        container.classList.remove('is-editing-quantity');
+
+        // Reset input quantity by previous input.
+        let previousQuantity;
+        cart.forEach(cartItem => {
+        if (cartItem.productId === id) {
+          previousQuantity = cartItem.quantity;
+        }
+      });
+      // to clean the input field
+      input.value = previousQuantity;
+      }
+    });
 });
+
