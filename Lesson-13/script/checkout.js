@@ -185,7 +185,7 @@ document.querySelectorAll('.js-link-primary')
       // wrong input handeling
       if(updatedQuantity <= 0) {
         updatedQuantity = previousQuantity;
-        alert('Quantity cannot be 0 or less. Reset to previous quantity.');
+        alert('Quantity cannot be 0 or less. Reverted to previous quantity.');
       }
 
       // after the error hadneling is done, call updateQuantity()
