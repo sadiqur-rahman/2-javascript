@@ -23,6 +23,6 @@
 
 4. set enter button to perform save 
 
-5. In Amazon home page, if cart items more than 99, show 99+.
+//5. In Amazon home page, if cart items more than 99, show 99+.
 
 N.B. // in front of means, that task has completed
