@@ -65,7 +65,11 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
 function updateCartQuantity() {
   // from cart.js
   calculateCartQuantity();
-  document.querySelector('.js-cart-quantity').innerHTML = `${cartQuantity}`;
+  if(cartQuantity > 99) {
+    document.querySelector('.js-cart-quantity').innerHTML = '99+';
+  } else {
+    document.querySelector('.js-cart-quantity').innerHTML = `${cartQuantity}`;
+  }
 }
 
 updateCartQuantity();
