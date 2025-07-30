@@ -10,7 +10,6 @@ export function saveToStorage() {
 export function addToCart(productId, quantity) {
   // for Increasing Quantity
   let matchingItem;
-
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
       matchingItem = cartItem;
@@ -37,13 +36,11 @@ export function addToCart(productId, quantity) {
 // 4. repalce the cart with newCart
 export function removeFromCart(deleteProductId) {
   const newCart = [];
-
   cart.forEach((cartItem) => {
     if(cartItem.productId !== deleteProductId) {
       newCart.push(cartItem);
     }
   });
-
   cart = newCart;
   saveToStorage();
 }
@@ -58,3 +55,12 @@ export function calculateCartQuantity() {
   });
   cartQuantity = newCartQuantity;
 };
+
+// Updating Quantity
+export function updateQuantity(id, updatedQuantity) {
+  cart.forEach(cartItem => {
+    if (cartItem.productId === id) {
+      cartItem.quantity = updatedQuantity;
+    }
+  });
+}

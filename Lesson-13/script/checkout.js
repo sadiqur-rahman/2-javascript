@@ -1,4 +1,4 @@
-import { cart, removeFromCart, saveToStorage } from "../data/cart.js";
+import { cart, removeFromCart, saveToStorage, updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { cartQuantity, calculateCartQuantity } from "../data/cart.js";
@@ -167,34 +167,31 @@ document.querySelectorAll('.js-link-primary')
   .forEach((link) => {
     link.addEventListener('click', () => {
       const id = link.dataset.productId;
-
       const container = document.querySelector(`.js-cart-item-container-${id}`);
       container.classList.remove('is-editing-quantity');
 
-      // Getting Updated Vlaue
-      // scope the selector inside the container so it always gets the correct input: container.querySelector('.quantity-input').value);
-      const updatedQuantity = Number(container.querySelector('.quantity-input').value);
-
-      // Find the product and update its quantity
-      let product;
-
-      cart.forEach(item => {
-        if (item.productId === id) {
-          product = item;
+      // save the previous quantity
+      let previousQuantity;
+      cart.forEach(cartItem => {
+        if (cartItem.productId === id) {
+        previousQuantity = cartItem.quantity;
         }
       });
+      console.log('previousQuantity:',previousQuantity);
 
-      // 2. update the cart quantity into cart array on cart.js 
-      if(product) {
-        product.quantity = updatedQuantity;
+      // Getting Updated quantity
+      // scope the selector inside the container so it always gets the correct input: container.querySelector('.quantity-input').value);
+      let updatedQuantity = Number(container.querySelector('.quantity-input').value);
+      // wrong input handeling
+      if(updatedQuantity <= 0) {
+        updatedQuantity = previousQuantity;
+        alert('Quantity cannot be 0 or less. Reset to previous quantity.');
       }
 
-      // 2.1 Update checkout items display
+      // after the error hadneling is done, call updateQuantity()
+      updateQuantity(id, updatedQuantity);
       updateCartQuantity();
-      // save to lcoal cart
       saveToStorage();
-
-      // 2.2 Update quantity label
-      container.querySelector('.js-cart-quantity-label').innerText = product.quantity;
+      container.querySelector('.js-cart-quantity-label').innerText = updatedQuantity;
     });
   });

@@ -4,18 +4,63 @@
   //1.1 convert to number
   //1.2 save it in a var
   //1.3 console the var for checking
-  1.4 error handelling
-    1.4.1 set minimum input to 1
-    1.4.2 negative input turing off
-    1.4.3 paste negative value then convert it to positive 
-    1.4.4 pasted zero? then use the previous values or stop pasting zero or default = 1. Show a small warning if possible (like “Quantity must be at least 1”).
+  1.4 wrong input handeling or error handelling
+    //1.4.1 save the previous value
+    //1.4.2 set minimum input to 1
+    1.4.3 negative input turing off
+    1.4.4 paste negative value then convert it to positive 
+    1.4.5 pasted zero? then use the previous values or stop pasting zero or default = 1. Show a small warning if possible (like “Quantity must be at least 1”).
 
-//2. update the cart quantity into cart array on cart.js  
-  //2.1 call the updateCartQuantity() 
-  //2.2 call saveToStorage()
-  //2.3 update js-cart-uantity-label
+//2. update the cart quantity into cart array on cart.js
+  //2.1 call updateQuantity() from cart.js
+  //2.2 call the updateCartQuantity()
+  //2.3 call saveToStorage()
+  //2.4 update js-cart-uantity-label
 
 3. make a update cancel button in case of need  
   3.1 pressing cancel during update will bring the previous item quantity
 
 N.B. // in front of means, that task has completed
+
+
+
+  // // start
+  //     // error handeling 
+  //     let previousValidQuantity = 1;
+
+  //     // Get the input element
+  //     const quantityInput = document.querySelector('.js-quantity-input');
+
+  //     // When user types
+  //     quantityInput.addEventListener('input', (e) => {
+  //       let value = Number(e.target.value);
+
+  //       // If value is invalid (NaN, negative, or zero)
+  //       if (isNaN(value) || value <= 0) {
+  //         e.target.value = previousValidQuantity;
+  //       } else {
+  //         previousValidQuantity = value;
+  //       }
+
+  //       console.log('Quantity:', previousValidQuantity);
+  //     });
+
+  //     // Prevent typing "-" directly
+  //     quantityInput.addEventListener('keydown', (e) => {
+  //       if (e.key === '-') {
+  //         e.preventDefault();
+  //       }
+  //     });
+
+  //     // Handle paste: block negative or zero
+  //     quantityInput.addEventListener('paste', (e) => {
+  //       const pasted = e.clipboardData.getData('text');
+  //       const number = Number(pasted);
+
+  //       if (isNaN(number) || number <= 0) {
+  //         e.preventDefault();
+  //         // Reset to previous valid value after paste
+  //         quantityInput.value = previousValidQuantity;
+  //       }
+  //     });
+  //     // end
