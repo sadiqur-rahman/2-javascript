@@ -168,6 +168,7 @@ document.querySelectorAll('.js-link-primary')
     link.addEventListener('click', () => {
       const id = link.dataset.productId;
       const container = document.querySelector(`.js-cart-item-container-${id}`);
+
       container.classList.remove('is-editing-quantity');
 
       // save the previous quantity
@@ -177,15 +178,15 @@ document.querySelectorAll('.js-link-primary')
         previousQuantity = cartItem.quantity;
         }
       });
-      console.log('previousQuantity:',previousQuantity);
 
       // Getting Updated quantity
       // scope the selector inside the container so it always gets the correct input: container.querySelector('.quantity-input').value);
-      let updatedQuantity = Number(container.querySelector('.quantity-input').value);
+      const input = container.querySelector('.quantity-input');
+      let updatedQuantity = Number(input.value);
       // wrong input handeling
       if(updatedQuantity <= 0) {
         updatedQuantity = previousQuantity;
-        alert('Quantity cannot be 0 or less. Reverted to previous quantity.');
+        alert('Invalid quantity. Must be at least 1.');
       }
 
       // after the error hadneling is done, call updateQuantity()
@@ -194,4 +195,26 @@ document.querySelectorAll('.js-link-primary')
       saveToStorage();
       container.querySelector('.js-cart-quantity-label').innerText = updatedQuantity;
     });
-  });
+
+    // This part is outside of the loop because you want to attach those keydown and paste listeners once, when the page loads — not every time the user clicks "Save". 
+    // Add negative typing & paste blocking to each input
+    const id = link.dataset.productId;
+    const container = document.querySelector(`.js-cart-item-container-${id}`);
+    const input = container.querySelector('.quantity-input');
+
+    // Block typing "-"
+    input.addEventListener('keydown', (event) => {
+      if (event.key === '-') {
+        event.preventDefault();
+      }
+    });
+
+    // Block pasting negative or zero
+    input.addEventListener('paste', (event) => {
+      const pasted = Number(event.clipboardData.getData('text'));
+      if (isNaN(pasted) || pasted <= 0) {
+        event.preventDefault();
+        alert('Invalid quantity pasted. Must be at least 1.');
+      }
+    });
+});
