@@ -147,7 +147,18 @@ document.querySelectorAll('.js-update-link')
       const id = link.dataset.productId;
 
       const container = document.querySelector(`.js-cart-item-container-${id}`);
-        container.classList.add('is-editing-quantity');
+      container.classList.add('is-editing-quantity');
+      
+      // showing the product present quantity in the input field
+      let product;
+
+      cart.forEach(item => {
+        if (item.productId === id) {
+          product = item;
+        }
+      });
+      container.querySelector('.quantity-input').value = product.quantity;
+
     });
   });
 
